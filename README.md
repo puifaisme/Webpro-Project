@@ -1,5 +1,4 @@
 # Webpro-Project
-Function of Budsakorn 
-- Login
-- Logout
-- Checkout
+Function of Chonticha
+- Add to cart
+- Update cart
