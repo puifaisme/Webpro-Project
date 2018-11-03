@@ -7,17 +7,29 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
+import sit.project.controller.ProductJpaController;
+import sit.project.model.Product;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
 public class ProductVegServlet extends HttpServlet {
-
+    @PersistenceUnit(unitName = "Webpro-ProjectPU")
+    EntityManagerFactory emf;
+    @Resource
+    UserTransaction utx;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,7 +41,11 @@ public class ProductVegServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductJpaController productVegJpa = new ProductJpaController(utx,emf);
         
+        List<Product> ProductVeg = productVegJpa.findProductEntities();
+        request.setAttribute("ProductVeg", ProductVeg);
+        getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
