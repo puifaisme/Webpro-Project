@@ -4,7 +4,7 @@ Bs.c.IT 2
 - Thanatcha Sukapunpan 60130500039  
 - Budsakorn Porananun  60130500047
 
-##---------------------------------- database -----------------------------------
+## database
 
 DROP TABLE ACCOUNT;
 DROP TABLE CATEGORY;
