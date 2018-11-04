@@ -1,9 +1,8 @@
 <%-- 
-    Document   : ProductDriedFruitView
-    Created on : 04-Nov-2018, 15:27:21
-    Author     : Chonticha Sae-jiw
+    Document   : ProductList
+    Created on : Nov 3, 2018, 8:11:47 PM
+    Author     : ADMIN
 --%>
-
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,10 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dried Fruit</title>
+        <title>Fruit</title>
     </head>
     <body>
-        <h1>Dried Fruit</h1>
+        <h1>Fruit</h1>
         <table id="example" class="table">
             <thead>
             <th>No</th>
@@ -23,13 +22,13 @@
             <th>Name</th>
             <th>Price</th>
         </thead>
-        <c:forEach items="${ProductDriedFruit}" var="pD" varStatus="num">
-            <tr>
+        <c:forEach items="${products}" var="pF" varStatus="num">
+             <tr>
                 <td>${num.count}</td>
-                <td>${pD.productId}</td>
-                <td><img src="${pageContext.request.contextPath}/PictureDriedFruit/${pD.image}"width="180"</td>
-                <td>${pD.productName}</td>
-                <td>${pD.price}</td>
+                <td>${pF.productId}</td>
+                <td><img src="${pageContext.request.contextPath}/PictureFruit/${pF.image}"width="180"</td>
+                <td>${pF.productName}</td>
+                <td>${pF.price}</td>
             </tr>
         </c:forEach>
     </table>
