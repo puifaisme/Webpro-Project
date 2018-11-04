@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
     , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Product.findCategoryId", query = "SELECT p FROM Product p WHERE p.categoryId = :Category_Id")     
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
 public class Product implements Serializable {
 
@@ -127,5 +128,5 @@ public class Product implements Serializable {
     public String toString() {
         return "sit.project.model.Product[ productId=" + productId + " ]";
     }
-    
+
 }

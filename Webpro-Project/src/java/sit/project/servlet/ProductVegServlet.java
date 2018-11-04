@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
+import sit.project.controller.CategoryJpaController;
 import sit.project.controller.ProductJpaController;
+import sit.project.model.Category;
 import sit.project.model.Product;
 
 /**
@@ -42,8 +44,10 @@ public class ProductVegServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductJpaController productVegJpa = new ProductJpaController(utx,emf);
+        CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
         
-        List<Product> ProductVeg = productVegJpa.findProductEntities();
+        Category categoryVeg = categoryVegJpa.findCategory(1);
+        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
         request.setAttribute("ProductVeg", ProductVeg);
         getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
     }

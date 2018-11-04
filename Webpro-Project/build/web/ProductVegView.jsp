@@ -21,16 +21,16 @@
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
-            </thead>
-            <c:forEach items="${ProductVeg}" var="pV" varStatus="num">
-                <tr>
-                    <td>${num.count}}</td>
-                    <td><img src="PictureVeg/${num.count}.png" width="120"></td>
-                    <td>${pV.productId}</td>
-                    <td>${pV.productName}</td>
-                    <td>${pV.price}</td>
-                </tr>
-            </c:forEach>
-        </table>
-    </body>
+        </thead>
+        <c:forEach items="${ProductVeg}" var="pV" varStatus="num">
+            <tr>
+                <td>${num.count}.</td>
+                 <td>${pV.productId}</td>
+                <td><img src="PictureVeg/${num.count}.jpg" width="120"></td>
+                <td>${pV.productName}</td>
+                <td>${pV.price}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</body>
 </html>
