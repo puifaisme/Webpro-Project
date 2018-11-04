@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
 public class Product implements Serializable {
 
+    @Size(max = 45)
+    @Column(name = "IMAGE")
+    private String image;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -127,6 +131,14 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "sit.project.model.Product[ productId=" + productId + " ]";
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 }

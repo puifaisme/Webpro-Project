@@ -25,8 +25,8 @@
         <c:forEach items="${ProductVeg}" var="pV" varStatus="num">
             <tr>
                 <td>${num.count}.</td>
-                 <td>${pV.productId}</td>
-                <td><img src="PictureVeg/${num.count}.jpg" width="120"></td>
+                <td>${pV.productId}</td>
+                <td><img src="${pageContext.request.contextPath}/PictureVeg/${pV.image}" width="180"></td>
                 <td>${pV.productName}</td>
                 <td>${pV.price}</td>
             </tr>

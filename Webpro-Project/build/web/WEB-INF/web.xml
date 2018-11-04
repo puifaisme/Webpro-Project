@@ -4,9 +4,17 @@
         <servlet-name>ProductVegServlet</servlet-name>
         <servlet-class>sit.project.servlet.ProductVegServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDriedFruitServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductDriedFruitServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDriedFruitServlet</servlet-name>
+        <url-pattern>/ProductDriedFruit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

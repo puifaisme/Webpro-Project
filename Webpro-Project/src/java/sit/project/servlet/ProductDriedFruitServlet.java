@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
@@ -26,15 +25,14 @@ import sit.project.model.Product;
  *
  * @author Chonticha Sae-jiw
  */
-public class ProductVegServlet extends HttpServlet {
+public class ProductDriedFruitServlet extends HttpServlet {
     @PersistenceUnit(unitName = "Webpro-ProjectPU")
     EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. 
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,13 +41,13 @@ public class ProductVegServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductJpaController productVegJpa = new ProductJpaController(utx,emf);
-        CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
+        ProductJpaController productDriedFruitJpa = new ProductJpaController(utx,emf);
+        CategoryJpaController categoryDriedFruitJpa = new CategoryJpaController(utx, emf);
         
-        Category categoryVeg = categoryVegJpa.findCategory(1);
-        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
-        request.setAttribute("ProductVeg", ProductVeg);
-        getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
+        Category categoryDriedFruit = categoryDriedFruitJpa.findCategory(3);
+        List<Product> ProductDriedFruit = productDriedFruitJpa.findCategoryId(categoryDriedFruit);
+        request.setAttribute("ProductDriedFruit", ProductDriedFruit);
+        getServletContext().getRequestDispatcher("/ProductDriedFruitView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
