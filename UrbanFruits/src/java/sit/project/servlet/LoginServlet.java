@@ -7,7 +7,6 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -15,19 +14,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import sit.project.controller.CategoryJpaController;
-import sit.project.controller.ProductJpaController;
-import sit.project.model.Category;
-import sit.project.model.Product;
+import sit.project.controller.AccountJpaController;
+import sit.project.model.Account;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
-public class ProductFruitServlet extends HttpServlet {
-@PersistenceUnit(unitName = "UrbanFruitsPU")
-    EntityManagerFactory emf;
+public class LoginServlet extends HttpServlet {
+    @PersistenceUnit(unitName = "UrbanFruitsPU")
+     EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
     /**
@@ -41,13 +39,25 @@ public class ProductFruitServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductJpaController productJpaCtrl = new ProductJpaController(utx, emf);
-        CategoryJpaController categoryFruitJpa = new CategoryJpaController(utx, emf);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
         
-        Category category = categoryFruitJpa.findCategory(2);
-        List<Product> products = productJpaCtrl.findCategoryId(category);
-        request.setAttribute("products", products);
-        getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        
+        if(email != null && email.trim().length()>0 && password != null && password.trim().length()>0 ){
+             AccountJpaController accountJPA = new AccountJpaController(utx, emf);
+             Account accountSearch = accountJPA.findAccount(email);
+             if(accountSearch!=null){
+                if(accountSearch.getPassword().equals(email)){
+                    session.setAttribute("session",accountSearch);
+                    response.sendRedirect("/555555");
+                    return;
+                }
+             }
+             response.sendRedirect("/LoginView.jsp");
+             return;
+        }
+        getServletContext().getRequestDispatcher("/LoginView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

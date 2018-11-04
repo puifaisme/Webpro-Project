@@ -4,32 +4,33 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fruit</title>
     </head>
     <body>
-        <h1>Vegetable</h1>
+        <h1>Fruit</h1>
         <table id="example" class="table">
             <thead>
             <th>No</th>
             <th>ID</th>
-            <!--<th>Image</th>-->
+            <th>Image</th>
             <th>Name</th>
             <th>Price</th>
         </thead>
-        <c:forEach items="${products}" var="pV" varStatus="num">            
-            <tr>
+        <c:forEach items="${products}" var="pF" varStatus="num">
+             <tr>
                 <td>${num.count}</td>
-              <!-- <td><img src="PictureVeg/${num.count}.png" width="120"></td>-->
-                <td>${pV.productId}</td>
-                <td>${pV.productName}</td>
-                <td>${pV.price}</td>
+                <td>${pF.productId}</td>
+                <td><img src="${pageContext.request.contextPath}/PictureFruit/${pF.image}"width="180"</td>
+                <td>${pF.productName}</td>
+                <td>${pF.price}</td>
             </tr>
         </c:forEach>
-    </table>           
+    </table>
 </body>
 </html>

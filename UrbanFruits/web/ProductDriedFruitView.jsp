@@ -27,7 +27,7 @@
             <tr>
                 <td>${num.count}</td>
                 <td>${pD.productId}</td>
-                <td><img src="${pageContext.request.contextPath}/PictureDriedFruit/${num.count}.jpg"width="180"</td>
+                <td><img src="${pageContext.request.contextPath}/PictureDriedFruit/${pD.image}"width="180"</td>
                 <td>${pD.productName}</td>
                 <td>${pD.price}</td>
             </tr>

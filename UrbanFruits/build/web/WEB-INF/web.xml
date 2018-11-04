@@ -16,6 +16,18 @@
         <servlet-name>SearchProductServlet</servlet-name>
         <servlet-class>sit.project.servlet.SearchProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActivateServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ActivateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>sit.project.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/SearchProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActivateServlet</servlet-name>
+        <url-pattern>/Activate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
