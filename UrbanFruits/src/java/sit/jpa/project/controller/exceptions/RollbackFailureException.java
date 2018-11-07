@@ -1,4 +1,4 @@
-package sit.project.controller.exceptions;
+package sit.jpa.project.controller.exceptions;
 
 public class RollbackFailureException extends Exception {
     public RollbackFailureException(String message, Throwable cause) {

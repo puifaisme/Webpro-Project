@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.model;
+package sit.jpa.project.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -140,7 +140,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "sit.project.model.Account[ email=" + email + " ]";
+        return "sit.jpa.project.model.Account[ email=" + email + " ]";
     }
     
 }

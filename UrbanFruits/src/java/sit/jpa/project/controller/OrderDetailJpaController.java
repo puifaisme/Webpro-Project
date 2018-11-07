@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.controller;
+package sit.jpa.project.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,20 +14,20 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
-import sit.project.controller.exceptions.NonexistentEntityException;
-import sit.project.controller.exceptions.PreexistingEntityException;
-import sit.project.controller.exceptions.RollbackFailureException;
-import sit.project.model.Customer;
-import sit.project.model.History;
-import sit.project.model.OrderList;
+import sit.jpa.project.controller.exceptions.NonexistentEntityException;
+import sit.jpa.project.controller.exceptions.PreexistingEntityException;
+import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.OrderDetail;
+import sit.jpa.project.model.OrderList;
+import sit.jpa.project.model.Product;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
-public class HistoryJpaController implements Serializable {
+public class OrderDetailJpaController implements Serializable {
 
-    public HistoryJpaController(UserTransaction utx, EntityManagerFactory emf) {
+    public OrderDetailJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
     }
@@ -38,29 +38,29 @@ public class HistoryJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(History history) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(OrderDetail orderDetail) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Customer custId = history.getCustId();
-            if (custId != null) {
-                custId = em.getReference(custId.getClass(), custId.getCustId());
-                history.setCustId(custId);
-            }
-            OrderList orderId = history.getOrderId();
+            OrderList orderId = orderDetail.getOrderId();
             if (orderId != null) {
                 orderId = em.getReference(orderId.getClass(), orderId.getOrderId());
-                history.setOrderId(orderId);
+                orderDetail.setOrderId(orderId);
             }
-            em.persist(history);
-            if (custId != null) {
-                custId.getHistoryList().add(history);
-                custId = em.merge(custId);
+            Product productId = orderDetail.getProductId();
+            if (productId != null) {
+                productId = em.getReference(productId.getClass(), productId.getProductId());
+                orderDetail.setProductId(productId);
             }
+            em.persist(orderDetail);
             if (orderId != null) {
-                orderId.getHistoryList().add(history);
+                orderId.getOrderDetailList().add(orderDetail);
                 orderId = em.merge(orderId);
+            }
+            if (productId != null) {
+                productId.getOrderDetailList().add(orderDetail);
+                productId = em.merge(productId);
             }
             utx.commit();
         } catch (Exception ex) {
@@ -69,8 +69,8 @@ public class HistoryJpaController implements Serializable {
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
-            if (findHistory(history.getHistoryId()) != null) {
-                throw new PreexistingEntityException("History " + history + " already exists.", ex);
+            if (findOrderDetail(orderDetail.getOrderDetailno()) != null) {
+                throw new PreexistingEntityException("OrderDetail " + orderDetail + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -80,40 +80,40 @@ public class HistoryJpaController implements Serializable {
         }
     }
 
-    public void edit(History history) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(OrderDetail orderDetail) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            History persistentHistory = em.find(History.class, history.getHistoryId());
-            Customer custIdOld = persistentHistory.getCustId();
-            Customer custIdNew = history.getCustId();
-            OrderList orderIdOld = persistentHistory.getOrderId();
-            OrderList orderIdNew = history.getOrderId();
-            if (custIdNew != null) {
-                custIdNew = em.getReference(custIdNew.getClass(), custIdNew.getCustId());
-                history.setCustId(custIdNew);
-            }
+            OrderDetail persistentOrderDetail = em.find(OrderDetail.class, orderDetail.getOrderDetailno());
+            OrderList orderIdOld = persistentOrderDetail.getOrderId();
+            OrderList orderIdNew = orderDetail.getOrderId();
+            Product productIdOld = persistentOrderDetail.getProductId();
+            Product productIdNew = orderDetail.getProductId();
             if (orderIdNew != null) {
                 orderIdNew = em.getReference(orderIdNew.getClass(), orderIdNew.getOrderId());
-                history.setOrderId(orderIdNew);
+                orderDetail.setOrderId(orderIdNew);
             }
-            history = em.merge(history);
-            if (custIdOld != null && !custIdOld.equals(custIdNew)) {
-                custIdOld.getHistoryList().remove(history);
-                custIdOld = em.merge(custIdOld);
+            if (productIdNew != null) {
+                productIdNew = em.getReference(productIdNew.getClass(), productIdNew.getProductId());
+                orderDetail.setProductId(productIdNew);
             }
-            if (custIdNew != null && !custIdNew.equals(custIdOld)) {
-                custIdNew.getHistoryList().add(history);
-                custIdNew = em.merge(custIdNew);
-            }
+            orderDetail = em.merge(orderDetail);
             if (orderIdOld != null && !orderIdOld.equals(orderIdNew)) {
-                orderIdOld.getHistoryList().remove(history);
+                orderIdOld.getOrderDetailList().remove(orderDetail);
                 orderIdOld = em.merge(orderIdOld);
             }
             if (orderIdNew != null && !orderIdNew.equals(orderIdOld)) {
-                orderIdNew.getHistoryList().add(history);
+                orderIdNew.getOrderDetailList().add(orderDetail);
                 orderIdNew = em.merge(orderIdNew);
+            }
+            if (productIdOld != null && !productIdOld.equals(productIdNew)) {
+                productIdOld.getOrderDetailList().remove(orderDetail);
+                productIdOld = em.merge(productIdOld);
+            }
+            if (productIdNew != null && !productIdNew.equals(productIdOld)) {
+                productIdNew.getOrderDetailList().add(orderDetail);
+                productIdNew = em.merge(productIdNew);
             }
             utx.commit();
         } catch (Exception ex) {
@@ -124,9 +124,9 @@ public class HistoryJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = history.getHistoryId();
-                if (findHistory(id) == null) {
-                    throw new NonexistentEntityException("The history with id " + id + " no longer exists.");
+                Integer id = orderDetail.getOrderDetailno();
+                if (findOrderDetail(id) == null) {
+                    throw new NonexistentEntityException("The orderDetail with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -142,24 +142,24 @@ public class HistoryJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            History history;
+            OrderDetail orderDetail;
             try {
-                history = em.getReference(History.class, id);
-                history.getHistoryId();
+                orderDetail = em.getReference(OrderDetail.class, id);
+                orderDetail.getOrderDetailno();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The history with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The orderDetail with id " + id + " no longer exists.", enfe);
             }
-            Customer custId = history.getCustId();
-            if (custId != null) {
-                custId.getHistoryList().remove(history);
-                custId = em.merge(custId);
-            }
-            OrderList orderId = history.getOrderId();
+            OrderList orderId = orderDetail.getOrderId();
             if (orderId != null) {
-                orderId.getHistoryList().remove(history);
+                orderId.getOrderDetailList().remove(orderDetail);
                 orderId = em.merge(orderId);
             }
-            em.remove(history);
+            Product productId = orderDetail.getProductId();
+            if (productId != null) {
+                productId.getOrderDetailList().remove(orderDetail);
+                productId = em.merge(productId);
+            }
+            em.remove(orderDetail);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -175,19 +175,19 @@ public class HistoryJpaController implements Serializable {
         }
     }
 
-    public List<History> findHistoryEntities() {
-        return findHistoryEntities(true, -1, -1);
+    public List<OrderDetail> findOrderDetailEntities() {
+        return findOrderDetailEntities(true, -1, -1);
     }
 
-    public List<History> findHistoryEntities(int maxResults, int firstResult) {
-        return findHistoryEntities(false, maxResults, firstResult);
+    public List<OrderDetail> findOrderDetailEntities(int maxResults, int firstResult) {
+        return findOrderDetailEntities(false, maxResults, firstResult);
     }
 
-    private List<History> findHistoryEntities(boolean all, int maxResults, int firstResult) {
+    private List<OrderDetail> findOrderDetailEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(History.class));
+            cq.select(cq.from(OrderDetail.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -199,20 +199,20 @@ public class HistoryJpaController implements Serializable {
         }
     }
 
-    public History findHistory(Integer id) {
+    public OrderDetail findOrderDetail(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(History.class, id);
+            return em.find(OrderDetail.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getHistoryCount() {
+    public int getOrderDetailCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<History> rt = cq.from(History.class);
+            Root<OrderDetail> rt = cq.from(OrderDetail.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

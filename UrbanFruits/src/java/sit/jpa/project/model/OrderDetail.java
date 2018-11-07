@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.model;
+package sit.jpa.project.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -118,7 +118,7 @@ public class OrderDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "sit.project.model.OrderDetail[ orderDetailno=" + orderDetailno + " ]";
+        return "sit.jpa.project.model.OrderDetail[ orderDetailno=" + orderDetailno + " ]";
     }
     
 }

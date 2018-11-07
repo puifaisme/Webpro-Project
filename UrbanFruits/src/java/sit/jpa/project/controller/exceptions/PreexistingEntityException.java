@@ -1,4 +1,4 @@
-package sit.project.controller.exceptions;
+package sit.jpa.project.controller.exceptions;
 
 public class PreexistingEntityException extends Exception {
     public PreexistingEntityException(String message, Throwable cause) {

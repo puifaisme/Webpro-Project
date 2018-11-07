@@ -31,6 +31,7 @@
                 <td>${pF.price}</td>
             </tr>
         </c:forEach>
+            ${product.productId}
     </table>
 </body>
 </html>

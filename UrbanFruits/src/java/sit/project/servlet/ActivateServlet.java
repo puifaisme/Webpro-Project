@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import sit.project.controller.AccountJpaController;
-import sit.project.controller.exceptions.RollbackFailureException;
-import sit.project.model.Account;
+import sit.jpa.project.controller.AccountJpaController;
+import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.Account;
 
 /**
  *

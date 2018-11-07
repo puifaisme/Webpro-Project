@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.model;
+package sit.jpa.project.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,12 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
     , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
     , @NamedQuery(name = "Product.findCategoryId", query = "SELECT p FROM Product p WHERE p.categoryId = :Category_Id")     
-    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")})
 public class Product implements Serializable {
-
-    @Size(max = 45)
-    @Column(name = "IMAGE")
-    private String image;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,6 +51,9 @@ public class Product implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRICE")
     private Double price;
+    @Size(max = 45)
+    @Column(name = "IMAGE")
+    private String image;
     @OneToMany(mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
@@ -89,6 +89,14 @@ public class Product implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @XmlTransient
@@ -130,15 +138,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "sit.project.model.Product[ productId=" + productId + " ]";
+        return "sit.jpa.project.model.Product[ productId=" + productId + " ]";
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
+    
 }

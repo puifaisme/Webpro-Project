@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import sit.project.controller.CategoryJpaController;
-import sit.project.controller.ProductJpaController;
-import sit.project.model.Category;
-import sit.project.model.Product;
+import sit.jpa.project.controller.CategoryJpaController;
+import sit.jpa.project.controller.ProductJpaController;
+import sit.jpa.project.model.Category;
+import sit.jpa.project.model.Product;
 
 /**
  *
