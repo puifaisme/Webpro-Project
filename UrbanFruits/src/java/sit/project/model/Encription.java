@@ -5,24 +5,16 @@
  */
 package sit.project.model;
 
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
-
 public class Encription {
-
     public String Encription(String pass) {
-        
-        try {
+    try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] passBytes = pass.getBytes();
             md.reset();

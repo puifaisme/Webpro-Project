@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import sit.project.controller.ProductJpaController;
-import sit.project.model.Product;
+import sit.jpa.project.controller.ProductJpaController;
+import sit.jpa.project.model.Product;
 
 /**
  *
@@ -43,8 +43,8 @@ public class SearchProductServlet extends HttpServlet {
        String productName = request.getParameter("productName");
         ProductJpaController productJpaCtrl = new ProductJpaController(utx, emf);
         List<Product> products = productJpaCtrl.findByProductName(productName);
-        request.setAttribute("products", products);
-        getServletContext().getRequestDispatcher("/ProductList.jsp").forward(request, response);
+        request.setAttribute("product", products);
+        getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.controller;
+package sit.jpa.project.controller;
 
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import sit.project.model.Category;
-import sit.project.model.OrderDetail;
+import sit.jpa.project.model.Category;
+import sit.jpa.project.model.OrderDetail;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import sit.project.controller.exceptions.NonexistentEntityException;
-import sit.project.controller.exceptions.PreexistingEntityException;
-import sit.project.controller.exceptions.RollbackFailureException;
-import sit.project.model.Product;
+import sit.jpa.project.controller.exceptions.NonexistentEntityException;
+import sit.jpa.project.controller.exceptions.PreexistingEntityException;
+import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.Product;
 
 /**
  *
@@ -220,7 +220,7 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public List<Product> findByProductName(String productName) {
         EntityManager em = getEntityManager();
         try {

@@ -1,4 +1,4 @@
-package sit.project.controller.exceptions;
+package sit.jpa.project.controller.exceptions;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

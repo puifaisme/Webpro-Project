@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.model;
+package sit.jpa.project.model;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,8 +47,8 @@ public class Customer implements Serializable {
     @Column(name = "LASTNAME")
     private String lastname;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CUST_ID")
     private Integer custId;
     @Size(max = 45)
@@ -158,7 +159,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "sit.project.model.Customer[ custId=" + custId + " ]";
+        return "sit.jpa.project.model.Customer[ custId=" + custId + " ]";
     }
     
 }

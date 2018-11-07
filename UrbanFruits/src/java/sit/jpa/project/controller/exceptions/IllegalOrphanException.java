@@ -1,4 +1,4 @@
-package sit.project.controller.exceptions;
+package sit.jpa.project.controller.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

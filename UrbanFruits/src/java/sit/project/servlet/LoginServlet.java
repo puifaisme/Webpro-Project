@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import sit.project.controller.AccountJpaController;
-import sit.project.model.Account;
+import sit.jpa.project.controller.AccountJpaController;
+import sit.jpa.project.model.Account;
 
 /**
  *

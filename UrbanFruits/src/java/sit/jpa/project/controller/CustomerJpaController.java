@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sit.project.controller;
+package sit.jpa.project.controller;
 
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import sit.project.model.Account;
-import sit.project.model.OrderList;
+import sit.jpa.project.model.Account;
+import sit.jpa.project.model.OrderList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import sit.project.controller.exceptions.NonexistentEntityException;
-import sit.project.controller.exceptions.PreexistingEntityException;
-import sit.project.controller.exceptions.RollbackFailureException;
-import sit.project.model.Customer;
-import sit.project.model.History;
+import sit.jpa.project.controller.exceptions.NonexistentEntityException;
+import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.Customer;
+import sit.jpa.project.model.History;
 
 /**
  *
@@ -40,7 +39,7 @@ public class CustomerJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Customer customer) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Customer customer) throws RollbackFailureException, Exception {
         if (customer.getOrderListList() == null) {
             customer.setOrderListList(new ArrayList<OrderList>());
         }
@@ -97,9 +96,6 @@ public class CustomerJpaController implements Serializable {
                 utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findCustomer(customer.getCustId()) != null) {
-                throw new PreexistingEntityException("Customer " + customer + " already exists.", ex);
             }
             throw ex;
         } finally {
