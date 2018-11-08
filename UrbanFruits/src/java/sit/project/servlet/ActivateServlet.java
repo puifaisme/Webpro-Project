@@ -7,9 +7,10 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
@@ -17,24 +18,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import sit.jpa.project.controller.CategoryJpaController;
-import sit.jpa.project.controller.ProductJpaController;
-import sit.jpa.project.model.Category;
-import sit.jpa.project.model.Product;
+import sit.jpa.project.controller.AccountJpaController;
+import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.Account;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
-public class ProductVegServlet extends HttpServlet {
+public class ActivateServlet extends HttpServlet {
     @PersistenceUnit(unitName = "UrbanFruitsPU")
     EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. 
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,13 +42,46 @@ public class ProductVegServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductJpaController productVegJpa = new ProductJpaController(utx,emf);
-        CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
+        String email = request.getParameter("email");
+        String activateKey = request.getParameter("activateKey");
         
-        Category categoryVeg = categoryVegJpa.findCategory(1);
-        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
-        request.setAttribute("ProductVeg", ProductVeg);
-        getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
+        if (email != null && email.trim().length() > 0) {
+            AccountJpaController accountJPA = new AccountJpaController(utx, emf);
+            Account account = accountJPA.findAccount(email);
+            if (account != null) {
+                String emailSendToJsp = account.getEmail();
+                String activateSendToJsp = account.getActivateKey();
+                request.setAttribute("email", emailSendToJsp);
+                request.setAttribute("activate", activateSendToJsp);
+                
+                
+            }
+        }
+        if (email != null && email.trim().length() > 0 && activateKey != null && activateKey.trim().length() > 0) {
+            AccountJpaController accountJPA = new AccountJpaController(utx, emf);
+            Account account = accountJPA.findAccount(email);
+            if (account != null) {
+                if (account.getActivateKey().equals(activateKey)) {
+                    
+                    try {
+                        account.setActivateTimestamp(new Date());
+                        accountJPA.edit(account);
+                        System.out.println("Redirect to SuccessAactivsate");
+                        getServletContext().getRequestDispatcher("/SuccessActivate.jsp").forward(request, response);
+//                        response.sendRedirect("UrbanFruits/SuccessActivate.jsp");
+                        return;
+                    } catch (RollbackFailureException ex) {
+                        Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        getServletContext().getRequestDispatcher("/ActivateView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

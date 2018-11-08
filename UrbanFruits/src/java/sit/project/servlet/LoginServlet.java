@@ -7,34 +7,30 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import sit.jpa.project.controller.CategoryJpaController;
-import sit.jpa.project.controller.ProductJpaController;
-import sit.jpa.project.model.Category;
-import sit.jpa.project.model.Product;
+import sit.jpa.project.controller.AccountJpaController;
+import sit.jpa.project.model.Account;
 
 /**
  *
  * @author Chonticha Sae-jiw
  */
-public class ProductVegServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
     @PersistenceUnit(unitName = "UrbanFruitsPU")
-    EntityManagerFactory emf;
+     EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. 
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,13 +39,25 @@ public class ProductVegServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductJpaController productVegJpa = new ProductJpaController(utx,emf);
-        CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
         
-        Category categoryVeg = categoryVegJpa.findCategory(1);
-        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
-        request.setAttribute("ProductVeg", ProductVeg);
-        getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        
+        if(email != null && email.trim().length()>0 && password != null && password.trim().length()>0 ){
+             AccountJpaController accountJPA = new AccountJpaController(utx, emf);
+             Account accountSearch = accountJPA.findAccount(email);
+             if(accountSearch!=null){
+                if(accountSearch.getPassword().equals(email)){
+                    session.setAttribute("session",accountSearch);
+                    response.sendRedirect("/555555");
+                    return;
+                }
+             }
+             response.sendRedirect("/LoginView.jsp");
+             return;
+        }
+        getServletContext().getRequestDispatcher("/LoginView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

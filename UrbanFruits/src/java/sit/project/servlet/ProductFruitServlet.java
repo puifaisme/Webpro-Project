@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import sit.project.controller.CategoryJpaController;
-import sit.project.controller.ProductJpaController;
-import sit.project.model.Category;
-import sit.project.model.Product;
+import sit.jpa.project.controller.CategoryJpaController;
+import sit.jpa.project.controller.ProductJpaController;
+import sit.jpa.project.model.Category;
+import sit.jpa.project.model.Product;
 
 /**
  *
@@ -42,9 +42,9 @@ public class ProductFruitServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductJpaController productJpaCtrl = new ProductJpaController(utx, emf);
-        CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
+        CategoryJpaController categoryFruitJpa = new CategoryJpaController(utx, emf);
         
-        Category category = categoryVegJpa.findCategory(2);
+        Category category = categoryFruitJpa.findCategory(2);
         List<Product> products = productJpaCtrl.findCategoryId(category);
         request.setAttribute("products", products);
         getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
