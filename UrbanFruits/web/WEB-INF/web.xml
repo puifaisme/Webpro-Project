@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+<<<<<<< HEAD
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>urban.servlet.LoginServlet</servlet-class>
     </servlet>
@@ -19,11 +20,66 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
+=======
+        <servlet-name>ProductVegServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductVegServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductDriedFruitServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductDriedFruitServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductFruitServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductFruitServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <servlet-class>sit.project.servlet.SearchProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActivateServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ActivateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>sit.project.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductVegServlet</servlet-name>
+        <url-pattern>/ProductVeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDriedFruitServlet</servlet-name>
+        <url-pattern>/ProductDriedFruit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductFruitServlet</servlet-name>
+        <url-pattern>/ProductFruit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <url-pattern>/SearchProduct</url-pattern>
+>>>>>>> master
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActivateServlet</servlet-name>
         <url-pattern>/Activate</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
+=======
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+>>>>>>> master
     <session-config>
         <session-timeout>
             30

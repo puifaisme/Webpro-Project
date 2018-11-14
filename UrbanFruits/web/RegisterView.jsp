@@ -1,7 +1,12 @@
 <%-- 
     Document   : RegisterView
+<<<<<<< HEAD
     Created on : Nov 3, 2018, 4:38:09 PM
     Author     : Bud
+=======
+    Created on : 04-Nov-2018, 22:42:30
+    Author     : Chonticha Sae-jiw
+>>>>>>> master
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,11 +33,15 @@
             <input type="radio" name="gender" value="male">male
             <input type="radio" name="gender" value="female">female
             <br><br>
+<<<<<<< HEAD
             <input type="submit">
             
             
             
             
+=======
+            <input type="submit">       
+>>>>>>> master
         </form>
         
     </body>

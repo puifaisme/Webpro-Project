@@ -3,6 +3,12 @@
   <persistence-unit name="UrbanFruitsPU" transaction-type="JTA">
     <jta-data-source>java:app/UrbanDB</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+<<<<<<< HEAD
     <properties/>
+=======
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+>>>>>>> master
   </persistence-unit>
 </persistence>
