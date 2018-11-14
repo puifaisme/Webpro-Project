@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 4, 2018, 2:34:54 PM
+    Author     : Bud
+*/
+@import url('https://fonts.googleapis.com/css?family=Sofia');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Quicksand');
+@font-face{
+	 font-family: 'moonbold';
+	 src: url('font/moon_bold-webfont.woff2');
+	 font-style: normal;
+	 font-weight: normal;
+ }
+#navBar ul{
+     margin: 0px;
+     padding: 0px;
+     list-style: none;
+     
+ }
+#navBar ul,li{
+
+	font-family: moonbold;
+	list-style: none;
+	display: inline;
+	padding: 20px;
+}
+#wrapNavbar a{
+	font-family: moonbold;
+	text-decoration:none;
+	padding: 12px;
+	color: #282830;
+	font-size: 10pt;
+	background-color: white;
+	border-radius: 12px;
+}
+#wrapNavbar{
+	margin: 0 auto;
+	background: white;
+	padding-bottom: 10px;
+	padding-top: 20px;
+}
+#wrapNavbar a:hover{
+	font-size: 10pt;
+	color:white ;
+	background-color: #282830;
+	padding-left: 15px;
+	border-radius: 15px;
+	transition: all 0.45s;
+}
