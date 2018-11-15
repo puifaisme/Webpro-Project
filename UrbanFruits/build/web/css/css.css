@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 15, 2018, 6:38:42 PM
+    Author     : ADMIN
+*/
+.pic{
+    width: 30%;
+    margin: 5px;
+    height: auto;
+
+}
+.picRow{
+    text-align: center;
+}
+
+.container .btn1 {
+    position: absolute;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 15px;
+    background-color: green;
+    border-color: green;
+    color: white;
+    top: 20%;
+    left: 28%;
+    
+}
+.container .btn2 {
+    position: absolute;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 15px;
+    background-color: red;
+    border-color: red;
+    color: white;
+    top: 20%;
+    left: 60%;
+    
+}
+.container .btn3 {
+    position: absolute;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 15px;
+    background-color: yellow;
+    border-color: yellow;
+    color: white;
+    top: 63%;
+    left: 28%;
+}
+
+.container .btn4 {
+    position: absolute;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 15px;
+    background-color: orange;
+    border-color: orange;
+    color: white;
+    top: 63%;
+    left: 60%;
+}
+
+.container .btn1:hover {
+    background-color: rgba(255, 99, 71, 0.2);
+    border-color: rgba(255, 99, 71, 0.2);
+}
+
+.container .btn2:hover {
+    background-color: rgba(255, 99, 71, 0.2);
+    border-color: rgba(255, 99, 71, 0.2);
+}
+
+.container .btn3:hover {
+    background-color: rgba(255, 99, 71, 0.2);
+    border-color: rgba(255, 99, 71, 0.2);
+}
+
+.container .btn4:hover {
+    background-color: rgba(255, 99, 71, 0.2);
+    border-color: rgba(255, 99, 71, 0.2);
+}
