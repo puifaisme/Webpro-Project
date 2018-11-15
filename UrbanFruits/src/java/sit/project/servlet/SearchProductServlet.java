@@ -7,16 +7,20 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
+import sit.jpa.project.controller.CategoryJpaController;
 import sit.jpa.project.controller.ProductJpaController;
+import sit.jpa.project.model.Category;
 import sit.jpa.project.model.Product;
 
 /**
@@ -24,11 +28,12 @@ import sit.jpa.project.model.Product;
  * @author Chonticha Sae-jiw
  */
 public class SearchProductServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "UrbanFruitsPU")
-     EntityManagerFactory emf;
+    EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,11 +45,34 @@ public class SearchProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String productName = request.getParameter("productName");
-        ProductJpaController productJpaCtrl = new ProductJpaController(utx, emf);
-        List<Product> products = productJpaCtrl.findByProductName(productName);
-        request.setAttribute("product", products);
-        getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
+        String productName = request.getParameter("productName");
+        String categoryId =  request.getParameter("categoryId");
+        int cId = Integer.parseInt(categoryId);
+        
+        CategoryJpaController categoryJpa = new CategoryJpaController(utx, emf);
+        Category category = categoryJpa.findCategory(cId);
+
+        ProductJpaController productJpa = new ProductJpaController(utx, emf);
+        List<Product> Result = productJpa.Search(productName, category);
+        System.out.println(cId);
+        request.setAttribute("products", Result);
+//        getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
+        switch (cId) {
+            case 1:
+                System.out.println("veg");
+                getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
+                break;
+            case 2:
+                getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
+                break;
+            case 3:
+                getServletContext().getRequestDispatcher("/ProductDriedFruitView.jsp").forward(request, response);
+                break;
+            default:
+                getServletContext().getRequestDispatcher("/ProductJuiceView.jsp").forward(request, response);
+                break;
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

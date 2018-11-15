@@ -47,8 +47,10 @@ public class ProductVegServlet extends HttpServlet {
         CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
         
         Category categoryVeg = categoryVegJpa.findCategory(1);
-        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
-        request.setAttribute("ProductVeg", ProductVeg);
+        List<Product> products = productVegJpa.findCategoryId(categoryVeg);
+        request.setAttribute("products", products);
+
+        
         getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
     }
 

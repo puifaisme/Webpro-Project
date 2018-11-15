@@ -14,6 +14,13 @@
     </head>
     <body>
         <h1>Vegetable</h1>
+        <form action="SearchProduct" method="POST">
+            Enter product name: 
+            <input type="text" required name="productName"/>
+            <input type="hidden" name="categoryId" value="1"/>
+
+            <input type="submit"/>
+        </form>
         <table id="example" class="table">
             <thead>
             <th>No</th>
@@ -22,11 +29,11 @@
             <th>Name</th>
             <th>Price</th>
         </thead>
-        <c:forEach items="${ProductVeg}" var="pV" varStatus="num">
+        <c:forEach items="${products}" var="pV" varStatus="num">
             <tr>
                 <td>${num.count}.</td>
                 <td>${pV.productId}</td>
-                <td><img src="${pageContext.request.contextPath}/PictureVeg/${pV.image}" width="180"></td>
+                <td><img src="${pageContext.request.contextPath}/${pV.image}" width="180"></td>
                 <td>${pV.productName}</td>
                 <td>${pV.price}</td>
             </tr>

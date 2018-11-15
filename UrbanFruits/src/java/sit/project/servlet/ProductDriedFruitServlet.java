@@ -45,8 +45,8 @@ public class ProductDriedFruitServlet extends HttpServlet {
         CategoryJpaController categoryDriedFruitJpa = new CategoryJpaController(utx, emf);
         
         Category categoryDriedFruit = categoryDriedFruitJpa.findCategory(3);
-        List<Product> ProductDriedFruit = productDriedFruitJpa.findCategoryId(categoryDriedFruit);
-        request.setAttribute("ProductDriedFruit", ProductDriedFruit);
+        List<Product> products = productDriedFruitJpa.findCategoryId(categoryDriedFruit);
+        request.setAttribute("products", products);
         getServletContext().getRequestDispatcher("/ProductDriedFruitView.jsp").forward(request, response);
     }
 

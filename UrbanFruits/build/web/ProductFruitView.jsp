@@ -13,6 +13,13 @@
         <title>Fruit</title>
     </head>
     <body>
+        <form action="SearchProduct" method="POST">
+            Enter product name: 
+            <input type="text" required name="productName"/>
+            <input type="hidden" value="2" name="categoryId"/>
+            <input type="submit"/>
+        </form>
+
         <h1>Fruit</h1>
         <table id="example" class="table">
             <thead>
@@ -23,15 +30,15 @@
             <th>Price</th>
         </thead>
         <c:forEach items="${products}" var="pF" varStatus="num">
-             <tr>
+            <tr>
                 <td>${num.count}</td>
                 <td>${pF.productId}</td>
-                <td><img src="${pageContext.request.contextPath}/PictureFruit/${pF.image}"width="180"</td>
+                <td><img src="${pageContext.request.contextPath}/${pF.image}"width="180"</td>
                 <td>${pF.productName}</td>
                 <td>${pF.price}</td>
             </tr>
         </c:forEach>
-            ${product.productId}
+        ${product.productId}
     </table>
 </body>
 </html>

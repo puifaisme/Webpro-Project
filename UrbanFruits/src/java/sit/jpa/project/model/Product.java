@@ -32,10 +32,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
-    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE lower(p.productName) like :productName")
     , @NamedQuery(name = "Product.findCategoryId", query = "SELECT p FROM Product p WHERE p.categoryId = :Category_Id")     
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")})
+    , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")
+    , @NamedQuery(name = "Product.findByCategoryIdAndName", query = "SELECT p FROM Product p WHERE lower(p.productName) like :productName and p.categoryId = :Category_Id")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;

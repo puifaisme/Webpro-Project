@@ -28,6 +28,18 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductJuiceServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductJuiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>sit.project.servlet.HistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchByCategoryServlet</servlet-name>
+        <servlet-class>sit.project.servlet.SearchByCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductJuiceServlet</servlet-name>
+        <url-pattern>/ProductJuice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/History</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchByCategoryServlet</servlet-name>
+        <url-pattern>/SearchByCategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
