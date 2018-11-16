@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
              if(accountSearch!=null){
                 if(accountSearch.getPassword().equals(email)){
                     session.setAttribute("session",accountSearch);
-                    response.sendRedirect("/555555");
+                    response.sendRedirect("/index.html");
                     return;
                 }
              }

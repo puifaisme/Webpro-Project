@@ -28,6 +28,10 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <servlet-class>sit.project.servlet.AddProductToCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <url-pattern>/AddProductToCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
