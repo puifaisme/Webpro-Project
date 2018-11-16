@@ -28,6 +28,10 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>sit.project.servlet.PaymentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/Payment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
