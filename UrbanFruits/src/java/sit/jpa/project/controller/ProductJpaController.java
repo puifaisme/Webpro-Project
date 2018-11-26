@@ -25,7 +25,7 @@ import sit.jpa.project.model.Product;
 
 /**
  *
- * @author Chonticha Sae-jiw
+ * @author ADMIN
  */
 public class ProductJpaController implements Serializable {
 
@@ -271,7 +271,7 @@ public class ProductJpaController implements Serializable {
         }
     }
 
-        public List<Product> findByProductName(String productName) {
+     public List<Product> findByProductName(String productName) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findByProductName");

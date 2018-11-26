@@ -23,7 +23,7 @@ import sit.jpa.project.model.Account;
 
 /**
  *
- * @author Chonticha Sae-jiw
+ * @author ADMIN
  */
 public class AccountJpaController implements Serializable {
 

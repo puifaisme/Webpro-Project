@@ -24,7 +24,7 @@ import sit.jpa.project.model.History;
 
 /**
  *
- * @author Chonticha Sae-jiw
+ * @author ADMIN
  */
 public class CustomerJpaController implements Serializable {
 

@@ -23,7 +23,7 @@ import sit.jpa.project.model.Category;
 
 /**
  *
- * @author Chonticha Sae-jiw
+ * @author ADMIN
  */
 public class CategoryJpaController implements Serializable {
 
@@ -172,7 +172,7 @@ public class CategoryJpaController implements Serializable {
         return findCategoryEntities(true, -1, -1);
     }
 
-    public List<Category> findByCategory(String categoryName) {
+     public List<Category> findByCategory(String categoryName) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Category.findByCategoryName");
