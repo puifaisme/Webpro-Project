@@ -20,6 +20,7 @@ import javax.transaction.UserTransaction;
 import sit.jpa.project.controller.exceptions.NonexistentEntityException;
 import sit.jpa.project.controller.exceptions.PreexistingEntityException;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
+import sit.jpa.project.model.History;
 import sit.jpa.project.model.Product;
 
 /**
@@ -43,6 +44,9 @@ public class ProductJpaController implements Serializable {
         if (product.getOrderDetailList() == null) {
             product.setOrderDetailList(new ArrayList<OrderDetail>());
         }
+        if (product.getHistoryList() == null) {
+            product.setHistoryList(new ArrayList<History>());
+        }
         EntityManager em = null;
         try {
             utx.begin();
@@ -58,6 +62,12 @@ public class ProductJpaController implements Serializable {
                 attachedOrderDetailList.add(orderDetailListOrderDetailToAttach);
             }
             product.setOrderDetailList(attachedOrderDetailList);
+            List<History> attachedHistoryList = new ArrayList<History>();
+            for (History historyListHistoryToAttach : product.getHistoryList()) {
+                historyListHistoryToAttach = em.getReference(historyListHistoryToAttach.getClass(), historyListHistoryToAttach.getHistoryId());
+                attachedHistoryList.add(historyListHistoryToAttach);
+            }
+            product.setHistoryList(attachedHistoryList);
             em.persist(product);
             if (categoryId != null) {
                 categoryId.getProductList().add(product);
@@ -70,6 +80,15 @@ public class ProductJpaController implements Serializable {
                 if (oldProductIdOfOrderDetailListOrderDetail != null) {
                     oldProductIdOfOrderDetailListOrderDetail.getOrderDetailList().remove(orderDetailListOrderDetail);
                     oldProductIdOfOrderDetailListOrderDetail = em.merge(oldProductIdOfOrderDetailListOrderDetail);
+                }
+            }
+            for (History historyListHistory : product.getHistoryList()) {
+                Product oldProductIdOfHistoryListHistory = historyListHistory.getProductId();
+                historyListHistory.setProductId(product);
+                historyListHistory = em.merge(historyListHistory);
+                if (oldProductIdOfHistoryListHistory != null) {
+                    oldProductIdOfHistoryListHistory.getHistoryList().remove(historyListHistory);
+                    oldProductIdOfHistoryListHistory = em.merge(oldProductIdOfHistoryListHistory);
                 }
             }
             utx.commit();
@@ -100,6 +119,8 @@ public class ProductJpaController implements Serializable {
             Category categoryIdNew = product.getCategoryId();
             List<OrderDetail> orderDetailListOld = persistentProduct.getOrderDetailList();
             List<OrderDetail> orderDetailListNew = product.getOrderDetailList();
+            List<History> historyListOld = persistentProduct.getHistoryList();
+            List<History> historyListNew = product.getHistoryList();
             if (categoryIdNew != null) {
                 categoryIdNew = em.getReference(categoryIdNew.getClass(), categoryIdNew.getCategoryId());
                 product.setCategoryId(categoryIdNew);
@@ -111,6 +132,13 @@ public class ProductJpaController implements Serializable {
             }
             orderDetailListNew = attachedOrderDetailListNew;
             product.setOrderDetailList(orderDetailListNew);
+            List<History> attachedHistoryListNew = new ArrayList<History>();
+            for (History historyListNewHistoryToAttach : historyListNew) {
+                historyListNewHistoryToAttach = em.getReference(historyListNewHistoryToAttach.getClass(), historyListNewHistoryToAttach.getHistoryId());
+                attachedHistoryListNew.add(historyListNewHistoryToAttach);
+            }
+            historyListNew = attachedHistoryListNew;
+            product.setHistoryList(historyListNew);
             product = em.merge(product);
             if (categoryIdOld != null && !categoryIdOld.equals(categoryIdNew)) {
                 categoryIdOld.getProductList().remove(product);
@@ -134,6 +162,23 @@ public class ProductJpaController implements Serializable {
                     if (oldProductIdOfOrderDetailListNewOrderDetail != null && !oldProductIdOfOrderDetailListNewOrderDetail.equals(product)) {
                         oldProductIdOfOrderDetailListNewOrderDetail.getOrderDetailList().remove(orderDetailListNewOrderDetail);
                         oldProductIdOfOrderDetailListNewOrderDetail = em.merge(oldProductIdOfOrderDetailListNewOrderDetail);
+                    }
+                }
+            }
+            for (History historyListOldHistory : historyListOld) {
+                if (!historyListNew.contains(historyListOldHistory)) {
+                    historyListOldHistory.setProductId(null);
+                    historyListOldHistory = em.merge(historyListOldHistory);
+                }
+            }
+            for (History historyListNewHistory : historyListNew) {
+                if (!historyListOld.contains(historyListNewHistory)) {
+                    Product oldProductIdOfHistoryListNewHistory = historyListNewHistory.getProductId();
+                    historyListNewHistory.setProductId(product);
+                    historyListNewHistory = em.merge(historyListNewHistory);
+                    if (oldProductIdOfHistoryListNewHistory != null && !oldProductIdOfHistoryListNewHistory.equals(product)) {
+                        oldProductIdOfHistoryListNewHistory.getHistoryList().remove(historyListNewHistory);
+                        oldProductIdOfHistoryListNewHistory = em.merge(oldProductIdOfHistoryListNewHistory);
                     }
                 }
             }
@@ -181,6 +226,11 @@ public class ProductJpaController implements Serializable {
                 orderDetailListOrderDetail.setProductId(null);
                 orderDetailListOrderDetail = em.merge(orderDetailListOrderDetail);
             }
+            List<History> historyList = product.getHistoryList();
+            for (History historyListHistory : historyList) {
+                historyListHistory.setProductId(null);
+                historyListHistory = em.merge(historyListHistory);
+            }
             em.remove(product);
             utx.commit();
         } catch (Exception ex) {
@@ -221,7 +271,7 @@ public class ProductJpaController implements Serializable {
         }
     }
 
-    public List<Product> findByProductName(String productName) {
+        public List<Product> findByProductName(String productName) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findByProductName");
@@ -287,7 +337,7 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public List<Product> findAll() {
         EntityManager em = getEntityManager();
         try {
@@ -297,7 +347,7 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-
+    
     public int getProductCount() {
         EntityManager em = getEntityManager();
         try {
@@ -310,5 +360,5 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

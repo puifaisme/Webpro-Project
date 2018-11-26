@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByCategoryIdAndName", query = "SELECT p FROM Product p WHERE lower(p.productName) like :productName and p.categoryId = :Category_Id")})
 public class Product implements Serializable {
 
+    @OneToMany(mappedBy = "productId")
+    private List<History> historyList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -141,6 +144,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "sit.jpa.project.model.Product[ productId=" + productId + " ]";
+    }
+
+    @XmlTransient
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
     }
     
 }

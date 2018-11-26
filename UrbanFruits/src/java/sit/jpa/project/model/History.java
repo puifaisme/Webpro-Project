@@ -6,6 +6,7 @@
 package sit.jpa.project.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,19 +37,28 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "History.findByTotalPrice", query = "SELECT h FROM History h WHERE h.totalPrice = :totalPrice")})
 public class History implements Serializable {
 
+    @Column(name = "TIME_STAMP")
+    @Temporal(TemporalType.DATE)
+    private Date timeStamp;
+    @Column(name = "QUANTITY")
+    private Integer quantity;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "TOTAL_PRICE")
+    private Double totalPrice;
+    @Column(name = "PRICE")
+    private Double price;
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
+    @ManyToOne
+    private Product productId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "HISTORY_ID")
     private Integer historyId;
-    @Size(max = 45)
-    @Column(name = "TIME_STAMP")
-    private String timeStamp;
     @Column(name = "HISTORY_COUNT")
     private Integer historyCount;
-    @Column(name = "TOTAL_PRICE")
-    private Integer totalPrice;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
     private Customer custId;
@@ -69,28 +81,12 @@ public class History implements Serializable {
         this.historyId = historyId;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     public Integer getHistoryCount() {
         return historyCount;
     }
 
     public void setHistoryCount(Integer historyCount) {
         this.historyCount = historyCount;
-    }
-
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public Customer getCustId() {
@@ -132,6 +128,46 @@ public class History implements Serializable {
     @Override
     public String toString() {
         return "sit.jpa.project.model.History[ historyId=" + historyId + " ]";
+    }
+
+    public Date getTime_Stamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getTotal_Price() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
     
 }
