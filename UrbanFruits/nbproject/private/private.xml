@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>web/HomePage.jsp</url>
+            <bookmark id="1">
+                <name/>
+                <line>68</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Chonticha%20Sae-jiw/Documents/Information%20Technology%20-%20Universal/BS.IT%20-%202/INT303/Project/Webpro-Project/UrbanFruits/web/CSS/ProductList.css</file>
-            <file>file:/C:/Users/Chonticha%20Sae-jiw/Documents/Information%20Technology%20-%20Universal/BS.IT%20-%202/INT303/Project/Webpro-Project/UrbanFruits/src/java/sit/project/servlet/ProductVegServlet.java</file>
-            <file>file:/C:/Users/Chonticha%20Sae-jiw/Documents/Information%20Technology%20-%20Universal/BS.IT%20-%202/INT303/Project/Webpro-Project/UrbanFruits/web/ProductVegView.jsp</file>
+            <file>file:/C:/Users/Chonticha%20Sae-jiw/Documents/Information%20Technology%20-%20Universal/BS.IT%20-%202/INT303/Project/Webpro-Project/UrbanFruits/src/java/sit/project/servlet/RemoveCartServlet.java</file>
         </group>
     </open-files>
 </project-private>

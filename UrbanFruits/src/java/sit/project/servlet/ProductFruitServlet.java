@@ -26,10 +26,13 @@ import sit.jpa.project.model.Product;
  * @author Chonticha Sae-jiw
  */
 public class ProductFruitServlet extends HttpServlet {
-@PersistenceUnit(unitName = "UrbanFruitsPU")
+
+    @PersistenceUnit(unitName = "UrbanFruitsPU")
     EntityManagerFactory emf;
+
     @Resource
     UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +46,7 @@ public class ProductFruitServlet extends HttpServlet {
             throws ServletException, IOException {
         ProductJpaController productJpaCtrl = new ProductJpaController(utx, emf);
         CategoryJpaController categoryFruitJpa = new CategoryJpaController(utx, emf);
-        
+
         Category category = categoryFruitJpa.findCategory(2);
         List<Product> products = productJpaCtrl.findCategoryId(category);
         request.setAttribute("products", products);

@@ -29,12 +29,52 @@
         <servlet-class>sit.project.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddProductToCartServlet</servlet-name>
-        <servlet-class>sit.project.servlet.AddProductToCartServlet</servlet-class>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>sit.project.servlet.PaymentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductJuiceServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductJuiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveCartServlet</servlet-name>
+        <servlet-class>sit.project.servlet.RemoveCartServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>sit.project.servlet.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCartServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ShowCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>sit.project.servlet.HistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchByCategoryServlet</servlet-name>
+        <servlet-class>sit.project.servlet.SearchByCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/Payment</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCartServlet</servlet-name>
+        <url-pattern>/ShowCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCartServlet</servlet-name>
+        <url-pattern>/RemoveCart</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDriedFruitServlet</servlet-name>
@@ -61,8 +101,16 @@
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddProductToCartServlet</servlet-name>
-        <url-pattern>/AddProductToCart</url-pattern>
+        <servlet-name>ProductJuiceServlet</servlet-name>
+        <url-pattern>/ProductJuice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/History</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchByCategoryServlet</servlet-name>
+        <url-pattern>/SearchByCategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -196,7 +196,7 @@ public class ProductJpaController implements Serializable {
             }
         }
     }
-
+    
     public List<Product> findProductEntities() {
         return findProductEntities(true, -1, -1);
     }
@@ -231,7 +231,19 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-
+    
+     public List<Product> Search(String productName,Category category) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findByCategoryIdAndName");
+            query.setParameter("productName", "%" + productName.toLowerCase() + "%");
+            query.setParameter("Category_Id", category);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
      public List<Product> findCategoryId(Category category) {
         EntityManager em = getEntityManager();
         try {

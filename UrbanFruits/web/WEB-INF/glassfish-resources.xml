@@ -10,7 +10,5 @@
         <property name="URL" value="jdbc:derby://localhost:1527/Urban-DB"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/Urban-DB" object-type="user" pool-name="derby_net_Urban-DB_appPool"/>
-    <jdbc-resource enabled="true" jndi-name="java:app/UrbanDB" object-type="user" pool-name="derby_net_Urban-DB_appPool"/>
     <jdbc-resource enabled="true" jndi-name="java:app/UrbanDB" object-type="user" pool-name="derby_net_Urban-DB_appPool"/>
 </resources>

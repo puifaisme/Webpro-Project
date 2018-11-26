@@ -6,8 +6,10 @@
 package sit.project.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
@@ -45,8 +47,10 @@ public class ProductVegServlet extends HttpServlet {
         CategoryJpaController categoryVegJpa = new CategoryJpaController(utx, emf);
         
         Category categoryVeg = categoryVegJpa.findCategory(1);
-        List<Product> ProductVeg = productVegJpa.findCategoryId(categoryVeg);
-        request.setAttribute("ProductVeg", ProductVeg);
+        List<Product> products = productVegJpa.findCategoryId(categoryVeg);
+        request.setAttribute("products", products);
+
+        
         getServletContext().getRequestDispatcher("/ProductVegView.jsp").forward(request, response);
     }
 

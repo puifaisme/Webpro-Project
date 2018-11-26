@@ -11,40 +11,36 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
         <title>Dried Fruit</title>
-         <link rel="stylesheet" type="text/css" href="CSS/ProductList.css">
     </head>
     <body>
-        <div class='font-moonlight'>
-            <ul class="nav-fix">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#news">Products</a></li>
-                <li><a href="UrbanCart">Cart</a></li>
-                <li><input type='textr'></input></li>
-                <li><button>Login</button></li>
-            </ul>
-            <img  class="pic-margin" src="Backgroung-Picture/Pic-Veg.jpg" width='100%'>
-            <div class="dropdown">
-                <button class="dropbtn"><img src="Icon/arrow.png" width="2%" class="margin-icon">search by . .</button>
-                <div class="dropdown-content">
-                    <a href="ProductVeg">Vegetables</a>
-                    <a href="ProductFruit">Fruit</a>
-                    <a href="ProductJuice">Juice</a>
-                </div>
-            </div>
-            <div class="flex-container margin-page">
-        <c:forEach items="${ProductDriedFruit}" var="pD" varStatus="num">
-                    <div class="font-moonlight-bold">
-                        <div><img src="${pageContext.request.contextPath}/PictureDriedFruit/${pD.image}" width="200" height="200"></div>
-                        <div class="name">${pD.productName}</div>
-                        <div class="price">${pD.price} BATH / 1 KG</div>
-                        <button onclick="" >-</button>
-                        <input type='text' name='quantity'/>
-                        <button onclick="" >+</button>
-                        <div><button type="button" class="btn-success margin-loop">ADD TO CART</button></div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
+       
+        
+        <h1>Dried Fruit</h1>
+         <form action="SearchProduct" method="POST">
+            Enter product name: 
+            <input type="text" required name="productName"/>
+            <input type="hidden" value="3" name="categoryId"/>
+            <input type="submit"/>
+        </form>
+        <table id="example" class="table">
+            <thead>
+            <th>No</th>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+        </thead>
+        <c:forEach items="${products}" var="pD" varStatus="num">
+            <tr>
+                <td>${num.count}</td>
+                <td>${pD.productId}</td>
+                <td><img src="${pageContext.request.contextPath}/${pD.image}"width="180"</td>
+                <td>${pD.productName}</td>
+                <td>${pD.price}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>
