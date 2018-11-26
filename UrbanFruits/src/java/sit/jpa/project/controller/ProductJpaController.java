@@ -196,7 +196,7 @@ public class ProductJpaController implements Serializable {
             }
         }
     }
-    
+
     public List<Product> findProductEntities() {
         return findProductEntities(true, -1, -1);
     }
@@ -231,8 +231,8 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
-     public List<Product> Search(String productName,Category category) {
+
+    public List<Product> Search(String productName, Category category) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findByCategoryIdAndName");
@@ -243,8 +243,32 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<Product> SearchByPrice(Double price, Category category) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findByPrice");
+            query.setParameter("prices", price);
+            query.setParameter("Category_Id", category);
+
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
     
-     public List<Product> findCategoryId(Category category) {
+    public List<Product> SearchAllByPrice(Double price) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findAllByPrice");
+            query.setParameter("prices", price);          
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Product> findCategoryId(Category category) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findCategoryId");
@@ -254,11 +278,21 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-     
+
     public Product findProduct(String id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Product.class, id);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Product> findAll() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findAll");
+            return query.getResultList();
         } finally {
             em.close();
         }
@@ -276,5 +310,5 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

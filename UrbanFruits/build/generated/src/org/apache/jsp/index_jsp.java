@@ -75,9 +75,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <a class=\"nav-link\" href=\"ProductAll\">Products</a>\n");
       out.write("                        </li>\n");
       out.write("                        <li class=\"nav-item\">\n");
-      out.write("                            <a class=\"nav-link\" href=\"ShowCart\">Cart(");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${cart.getQuantity()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(")</a>\n");
+      out.write("                            <a class=\"nav-link\" href=\"ShowCart\">Cart()</a>\n");
       out.write("                        </li>                                     \n");
       out.write("                    </ul>\n");
       out.write("                    <form class=\"form-inline my-2 my-lg-0 col-4\" style=\"margin-right: 10%\">\n");

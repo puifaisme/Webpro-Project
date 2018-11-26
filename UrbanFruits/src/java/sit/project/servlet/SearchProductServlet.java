@@ -46,16 +46,36 @@ public class SearchProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String productName = request.getParameter("productName");
-        String categoryId =  request.getParameter("categoryId");
+        String categoryId = request.getParameter("categoryId");
+        boolean check = false;
+        String[] StringArray = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        String number = productName.substring(0,1);
         int cId = Integer.parseInt(categoryId);
-        
-        CategoryJpaController categoryJpa = new CategoryJpaController(utx, emf);
-        Category category = categoryJpa.findCategory(cId);
+        for (int i = 0; i < StringArray.length; i++) {
+            if (number.equals(StringArray[i])) {
+                check = true;
+            }
+        }
+        if (check == true) {
 
-        ProductJpaController productJpa = new ProductJpaController(utx, emf);
-        List<Product> Result = productJpa.Search(productName, category);
-        System.out.println(cId);
-        request.setAttribute("products", Result);
+            double price = Double.parseDouble(productName);
+            CategoryJpaController categoryJpa = new CategoryJpaController(utx, emf);
+            Category category = categoryJpa.findCategory(cId);
+
+            ProductJpaController productJpa = new ProductJpaController(utx, emf);
+            List<Product> Result = productJpa.SearchByPrice(price, category);
+            request.setAttribute("products", Result);
+        } else if (check == false) {
+            CategoryJpaController categoryJpa = new CategoryJpaController(utx, emf);
+            Category category = categoryJpa.findCategory(cId);
+
+            ProductJpaController productJpa = new ProductJpaController(utx, emf);
+            List<Product> Result = productJpa.Search(productName, category);
+            System.out.println(cId);
+            request.setAttribute("products", Result);
+
+        }
+
 //        getServletContext().getRequestDispatcher("/ProductFruitView.jsp").forward(request, response);
         switch (cId) {
             case 1:

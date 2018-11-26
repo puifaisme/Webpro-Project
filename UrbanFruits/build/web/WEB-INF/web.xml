@@ -40,7 +40,7 @@
         <servlet-name>RemoveCartServlet</servlet-name>
         <servlet-class>sit.project.servlet.RemoveCartServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>AddToCartServlet</servlet-name>
         <servlet-class>sit.project.servlet.AddToCartServlet</servlet-class>
     </servlet>
@@ -55,6 +55,10 @@
     <servlet>
         <servlet-name>SearchByCategoryServlet</servlet-name>
         <servlet-class>sit.project.servlet.SearchByCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductAllServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductAllServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
@@ -72,7 +76,7 @@
         <servlet-name>RemoveCartServlet</servlet-name>
         <url-pattern>/RemoveCart</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddToCartServlet</servlet-name>
         <url-pattern>/AddToCart</url-pattern>
     </servlet-mapping>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>SearchByCategoryServlet</servlet-name>
         <url-pattern>/SearchByCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductAllServlet</servlet-name>
+        <url-pattern>/ProductAll</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

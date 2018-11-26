@@ -10,36 +10,45 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/ProductList.css">
         <title>Fruit</title>
     </head>
     <body>
-        <form action="SearchProduct" method="POST">
-            Enter product name: 
-            <input type="text" required name="productName"/>
-            <input type="hidden" value="2" name="categoryId"/>
-            <input type="submit"/>
-        </form>
-
-        <h1>Fruit</h1>
-        <table id="example" class="table">
-            <thead>
-            <th>No</th>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price</th>
-        </thead>
+         <div class='font-moonlight'>
+            <ul class="nav-fix">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#news">Products</a></li>
+                <li><a href="UrbanCart">Cart</a></li>
+                <li><form action="SearchProduct" method="post">
+                        <input type="text" minlength="3" required name="productName">
+                        <input type="hidden" value="2" name="categoryId">
+                        <input type="submit">
+                    </form>
+                </li>
+                <li><button>Login</button></li>
+            </ul>
+            <img  class="pic-margin" src="Backgroung-Picture/Pic-Veg.jpg" width='100%'>
+            <div class="dropdown">
+                <button class="dropbtn"><img src="Icon/arrow.png" width="2%" class="margin-icon">search by . .</button>
+                <div class="dropdown-content">
+                    <a href="ProductVeg">Vegetables</a>
+                    <a href="ProductDriedFruit">Dried Fruit</a>
+                    <a href="ProductJuice">Juice</a>
+                </div>
+            </div>
+            <div class="flex-container margin-page">
         <c:forEach items="${products}" var="pF" varStatus="num">
-            <tr>
-                <td>${num.count}</td>
-                <td>${pF.productId}</td>
-                <td><img src="${pageContext.request.contextPath}/${pF.image}"width="180"</td>
-                <td>${pF.productName}</td>
-                <td>${pF.price}</td>
-            </tr>
-        </c:forEach>
-        ${product.productId}
-    </table>
+                    <div class="font-moonlight-bold">
+                        <div><img src="${pageContext.request.contextPath}/${pF.image}" width="200" height="200"></div>
+                        <div class="name">${pF.productName}</div>
+                        <div class="price">${pF.price} BATH / 1 KG</div>
+                        <button onclick="" >-</button>
+                        <input type='text' name='quantity'/>
+                        <button onclick="" >+</button>
+                        <div><button type="button" class="btn-success margin-loop">ADD TO CART</button></div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
 </body>
 </html>
