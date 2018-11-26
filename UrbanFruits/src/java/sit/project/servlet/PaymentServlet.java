@@ -21,8 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import sit.jpa.project.controller.CustomerJpaController;
 import sit.jpa.project.controller.HistoryJpaController;
-import sit.jpa.project.controller.OrderDetailJpaController;
-import sit.jpa.project.controller.OrderListJpaController;
+
 import sit.jpa.project.controller.ProductJpaController;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
 import sit.jpa.project.model.Customer;

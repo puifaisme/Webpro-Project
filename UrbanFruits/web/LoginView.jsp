@@ -13,7 +13,7 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="css/ProductList.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/ProductList.css" rel="stylesheet" type="text/css"/>
 
         <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">

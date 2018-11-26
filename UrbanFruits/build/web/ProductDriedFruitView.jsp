@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dried Fruit</title>
-        <link href="css/ProductList.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/ProductList.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class='font-moonlight'>
