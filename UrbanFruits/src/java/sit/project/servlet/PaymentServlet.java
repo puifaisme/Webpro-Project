@@ -35,34 +35,47 @@ import sit.jpa.project.model.Product;
  * @author Bud
  */
 public class PaymentServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "UrbanFruitsPU")
     EntityManagerFactory emf;
     @Resource
     UserTransaction utx;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        String idCard = request.getParameter("idCard");
         String[] productNo = request.getParameterValues("productNo");
-        if(session.getAttribute("session")!=null){
-           
-            Customer cust = (Customer)request.getAttribute("session");
-            if(cust!=null){
-            CustomerJpaController custJPA = new CustomerJpaController(utx, emf);
-            Customer search = custJPA.findCustomer(cust.getCustId()); 
-            HistoryJpaController hisJPA = new HistoryJpaController(utx, emf);
-            }
-            if(productNo!=null){
-                for(int i=0;i<productNo.length;i++){
-                    ProductJpaController prodJPA = new ProductJpaController(utx, emf);
-                    Product prod = prodJPA.findProduct(productNo[i]);
-//                    History his = new History(new Date(),search, totalPrice);
+
+            if (idCard != null) {
+                
+                
+                /*Customer cust = (Customer) request.getAttribute("session");
+                if (cust != null) {
+                    CustomerJpaController custJPA = new CustomerJpaController(utx, emf);
+                    Customer search = custJPA.findCustomer(cust.getCustId());
+                    HistoryJpaController hisJPA = new HistoryJpaController(utx, emf);
                 }
+
+                if (productNo != null) {
+                    for (int i = 0; i < productNo.length; i++) {
+                        ProductJpaController prodJPA = new ProductJpaController(utx, emf);
+                        Product prod = prodJPA.findProduct(productNo[i]);
+                        History his = new History();
+                        his.setCustId(cust);
+                        his.setPrice(prod.getPrice());
+                    }
+                }*/
+                
+                
+                
+                //After Payment
+                response.sendRedirect("/UrbanFruits");
+                return;
             
-            
-            }
-           
-         
+
         }
+        getServletContext().getRequestDispatcher("/PaymentView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

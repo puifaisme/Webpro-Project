@@ -29,13 +29,14 @@ and open the template in the editor.
 .font-moonlight-bold {
     font-family: 'moonbold';
 }
-.nav-fix {
+
+/*.nav-fix {
     position: fixed;
     background-color: white;
     left: 0;
     top: 0;
     width: 100%;
-}
+}*/
 
 ul {
     list-style-type: none;
@@ -132,6 +133,7 @@ li input {
     border-style: solid;
     border-width: 1px;
     border-color: #707070;
+    margin-right: 5%;
 }
 
 .dropdown {

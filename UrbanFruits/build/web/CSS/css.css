@@ -21,10 +21,6 @@ and open the template in the editor.
     margin-bottom: 10%;
 }
 
-.fix {
-    position: fixed;
-}
-
 .fit-image {
         object-fit: cover;
     height: 650px;

@@ -29,11 +29,10 @@
                             
                     </tr>
                     
-            </c:forEach><br><br>
+            </c:forEach>
+            </table><br><br>
             <input type="text" name="idCard" required="" placeholder="IDCARD">
             <button type="submit">PAY</button>
-            </table>
-            
         </form>
         
     </body>

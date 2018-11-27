@@ -7,6 +7,7 @@ package sit.project.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import sit.jpa.project.controller.ProductJpaController;
 import sit.jpa.project.model.Product;
+import sit.project.model.LineItem;
 import sit.project.model.ShoppingCart;
 
 /**
@@ -36,6 +38,8 @@ public class AddToCartServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         String proID = request.getParameter("proId");
+        String quantity = request.getParameter("quantity");
+        
 
         if (session.getAttribute("cart") == null) {
             ShoppingCart cart = new ShoppingCart();
@@ -46,9 +50,12 @@ public class AddToCartServlet extends HttpServlet {
             ProductJpaController prodJPA = new ProductJpaController(utx, emf);
             Product product = prodJPA.findProduct(proID);
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+            System.out.println(proID);
+            System.out.println(quantity);
+            for (int i = 0; i < Integer.parseInt(quantity); i++) {
+                cart.Add(product);
+            }
             
-            
-            cart.Add(product);
             request.setAttribute("msg", "successful");
             session.setAttribute("cart", cart);
         }
