@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,10 +32,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "History.findAll", query = "SELECT h FROM History h")
     , @NamedQuery(name = "History.findByHistoryId", query = "SELECT h FROM History h WHERE h.historyId = :historyId")
     , @NamedQuery(name = "History.findByTimeStamp", query = "SELECT h FROM History h WHERE h.timeStamp = :timeStamp")
-    , @NamedQuery(name = "History.findByHistoryCount", query = "SELECT h FROM History h WHERE h.historyCount = :historyCount")
-    , @NamedQuery(name = "History.findByTotalPrice", query = "SELECT h FROM History h WHERE h.totalPrice = :totalPrice")})
+    , @NamedQuery(name = "History.findByQuantity", query = "SELECT h FROM History h WHERE h.quantity = :quantity")
+    , @NamedQuery(name = "History.findByTotalPrice", query = "SELECT h FROM History h WHERE h.totalPrice = :totalPrice")
+    , @NamedQuery(name = "History.findByPrice", query = "SELECT h FROM History h WHERE h.price = :price")})
 public class History implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "HISTORY_ID")
+    private Integer historyId;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.DATE)
     private Date timeStamp;
@@ -47,24 +53,12 @@ public class History implements Serializable {
     private Double totalPrice;
     @Column(name = "PRICE")
     private Double price;
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-    @ManyToOne
-    private Product productId;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "HISTORY_ID")
-    private Integer historyId;
-    @Column(name = "HISTORY_COUNT")
-    private Integer historyCount;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
     private Customer custId;
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne
-    private OrderList orderId;
+    private Product productId;
 
     public History() {
     }
@@ -81,12 +75,36 @@ public class History implements Serializable {
         this.historyId = historyId;
     }
 
-    public Integer getHistoryCount() {
-        return historyCount;
+    public Date getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setHistoryCount(Integer historyCount) {
-        this.historyCount = historyCount;
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Customer getCustId() {
@@ -97,12 +115,12 @@ public class History implements Serializable {
         this.custId = custId;
     }
 
-    public OrderList getOrderId() {
-        return orderId;
+    public Product getProductId() {
+        return productId;
     }
 
-    public void setOrderId(OrderList orderId) {
-        this.orderId = orderId;
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
     @Override
@@ -128,46 +146,6 @@ public class History implements Serializable {
     @Override
     public String toString() {
         return "sit.jpa.project.model.History[ historyId=" + historyId + " ]";
-    }
-
-    public Date getTime_Stamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getTotal_Price() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Product getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Product productId) {
-        this.productId = productId;
     }
     
 }

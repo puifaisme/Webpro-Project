@@ -56,8 +56,6 @@ public class Customer implements Serializable {
     private String gender;
     @Column(name = "AGE")
     private Integer age;
-    @OneToMany(mappedBy = "custId")
-    private List<OrderList> orderListList;
     @JoinColumn(name = "EMAIL", referencedColumnName = "EMAIL")
     @ManyToOne
     private Account email;
@@ -109,15 +107,6 @@ public class Customer implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    @XmlTransient
-    public List<OrderList> getOrderListList() {
-        return orderListList;
-    }
-
-    public void setOrderListList(List<OrderList> orderListList) {
-        this.orderListList = orderListList;
     }
 
     public Account getEmail() {

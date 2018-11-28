@@ -19,12 +19,11 @@ import sit.jpa.project.controller.exceptions.PreexistingEntityException;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
 import sit.jpa.project.model.Customer;
 import sit.jpa.project.model.History;
-import sit.jpa.project.model.OrderList;
 import sit.jpa.project.model.Product;
 
 /**
  *
- * @author ADMIN
+ * @author Chonticha Sae-jiw
  */
 public class HistoryJpaController implements Serializable {
 
@@ -49,11 +48,6 @@ public class HistoryJpaController implements Serializable {
                 custId = em.getReference(custId.getClass(), custId.getCustId());
                 history.setCustId(custId);
             }
-            OrderList orderId = history.getOrderId();
-            if (orderId != null) {
-                orderId = em.getReference(orderId.getClass(), orderId.getOrderId());
-                history.setOrderId(orderId);
-            }
             Product productId = history.getProductId();
             if (productId != null) {
                 productId = em.getReference(productId.getClass(), productId.getProductId());
@@ -63,10 +57,6 @@ public class HistoryJpaController implements Serializable {
             if (custId != null) {
                 custId.getHistoryList().add(history);
                 custId = em.merge(custId);
-            }
-            if (orderId != null) {
-                orderId.getHistoryList().add(history);
-                orderId = em.merge(orderId);
             }
             if (productId != null) {
                 productId.getHistoryList().add(history);
@@ -98,17 +88,11 @@ public class HistoryJpaController implements Serializable {
             History persistentHistory = em.find(History.class, history.getHistoryId());
             Customer custIdOld = persistentHistory.getCustId();
             Customer custIdNew = history.getCustId();
-            OrderList orderIdOld = persistentHistory.getOrderId();
-            OrderList orderIdNew = history.getOrderId();
             Product productIdOld = persistentHistory.getProductId();
             Product productIdNew = history.getProductId();
             if (custIdNew != null) {
                 custIdNew = em.getReference(custIdNew.getClass(), custIdNew.getCustId());
                 history.setCustId(custIdNew);
-            }
-            if (orderIdNew != null) {
-                orderIdNew = em.getReference(orderIdNew.getClass(), orderIdNew.getOrderId());
-                history.setOrderId(orderIdNew);
             }
             if (productIdNew != null) {
                 productIdNew = em.getReference(productIdNew.getClass(), productIdNew.getProductId());
@@ -122,14 +106,6 @@ public class HistoryJpaController implements Serializable {
             if (custIdNew != null && !custIdNew.equals(custIdOld)) {
                 custIdNew.getHistoryList().add(history);
                 custIdNew = em.merge(custIdNew);
-            }
-            if (orderIdOld != null && !orderIdOld.equals(orderIdNew)) {
-                orderIdOld.getHistoryList().remove(history);
-                orderIdOld = em.merge(orderIdOld);
-            }
-            if (orderIdNew != null && !orderIdNew.equals(orderIdOld)) {
-                orderIdNew.getHistoryList().add(history);
-                orderIdNew = em.merge(orderIdNew);
             }
             if (productIdOld != null && !productIdOld.equals(productIdNew)) {
                 productIdOld.getHistoryList().remove(history);
@@ -177,11 +153,6 @@ public class HistoryJpaController implements Serializable {
             if (custId != null) {
                 custId.getHistoryList().remove(history);
                 custId = em.merge(custId);
-            }
-            OrderList orderId = history.getOrderId();
-            if (orderId != null) {
-                orderId.getHistoryList().remove(history);
-                orderId = em.merge(orderId);
             }
             Product productId = history.getProductId();
             if (productId != null) {

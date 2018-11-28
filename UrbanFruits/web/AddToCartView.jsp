@@ -27,9 +27,9 @@
                         <form action="RemoveCart">
                             <input type="hidden" name="delete" value="${cartlist.product.productId}">
                             <!--                            <button type="submit">x</button>-->
-                            <button type="button" class="close" aria-label="Close">
+<!--                            <button type="button" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </button>-->
                         </form>                       
                     </td>
                 </tr>

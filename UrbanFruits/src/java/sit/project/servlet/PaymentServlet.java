@@ -26,9 +26,8 @@ import sit.jpa.project.controller.ProductJpaController;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
 import sit.jpa.project.model.Customer;
 import sit.jpa.project.model.History;
-import sit.jpa.project.model.OrderDetail;
-import sit.jpa.project.model.OrderList;
 import sit.jpa.project.model.Product;
+import sit.project.model.LineItem;
 
 /**
  *
@@ -47,32 +46,43 @@ public class PaymentServlet extends HttpServlet {
         String idCard = request.getParameter("idCard");
         String[] productNo = request.getParameterValues("productNo");
 
-            if (idCard != null) {
+        if (idCard != null) {
+
+            Customer cust = (Customer) request.getAttribute("session");
+            if (cust != null) {
+                CustomerJpaController custJPA = new CustomerJpaController(utx, emf);
+                Customer search = custJPA.findCustomer(cust.getCustId());
                 
-                
-                /*Customer cust = (Customer) request.getAttribute("session");
-                if (cust != null) {
-                    CustomerJpaController custJPA = new CustomerJpaController(utx, emf);
-                    Customer search = custJPA.findCustomer(cust.getCustId());
+            }
+
+            if (productNo != null) {
+                for (int i = 0; i < productNo.length; i++) {
+                    ProductJpaController prodJPA = new ProductJpaController(utx, emf);
+                    Product prod = prodJPA.findProduct(productNo[i]);
                     HistoryJpaController hisJPA = new HistoryJpaController(utx, emf);
+                    LineItem item = new LineItem(prod);
+                    History his = new History(1);
+                    his.setCustId(cust);
+                    his.setPrice(prod.getPrice());
+                    his.setQuantity(item.getQuantity());
+                    his.setTimeStamp(new Date());
+                    his.setTotalPrice(item.TotalPrice());
+                    his.setProductId(prod);
+                    his.setHistoryId(i);
+                    try {
+                        hisJPA.create(his);
+                        System.out.println("111111111111");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+
                 }
 
-                if (productNo != null) {
-                    for (int i = 0; i < productNo.length; i++) {
-                        ProductJpaController prodJPA = new ProductJpaController(utx, emf);
-                        Product prod = prodJPA.findProduct(productNo[i]);
-                        History his = new History();
-                        his.setCustId(cust);
-                        his.setPrice(prod.getPrice());
-                    }
-                }*/
-                
-                
-                
-                //After Payment
-                response.sendRedirect("/UrbanFruits");
-                return;
-            
+            }
+
+            //After Payment
+            response.sendRedirect("/UrbanFruits");
+            return;
 
         }
         getServletContext().getRequestDispatcher("/PaymentView.jsp").forward(request, response);

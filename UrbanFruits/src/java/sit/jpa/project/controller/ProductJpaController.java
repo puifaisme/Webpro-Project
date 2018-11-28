@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import sit.jpa.project.model.Category;
-import sit.jpa.project.model.OrderDetail;
+import sit.jpa.project.model.History;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,12 +20,11 @@ import javax.transaction.UserTransaction;
 import sit.jpa.project.controller.exceptions.NonexistentEntityException;
 import sit.jpa.project.controller.exceptions.PreexistingEntityException;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
-import sit.jpa.project.model.History;
 import sit.jpa.project.model.Product;
 
 /**
  *
- * @author ADMIN
+ * @author Chonticha Sae-jiw
  */
 public class ProductJpaController implements Serializable {
 
@@ -41,9 +40,6 @@ public class ProductJpaController implements Serializable {
     }
 
     public void create(Product product) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (product.getOrderDetailList() == null) {
-            product.setOrderDetailList(new ArrayList<OrderDetail>());
-        }
         if (product.getHistoryList() == null) {
             product.setHistoryList(new ArrayList<History>());
         }
@@ -56,12 +52,6 @@ public class ProductJpaController implements Serializable {
                 categoryId = em.getReference(categoryId.getClass(), categoryId.getCategoryId());
                 product.setCategoryId(categoryId);
             }
-            List<OrderDetail> attachedOrderDetailList = new ArrayList<OrderDetail>();
-            for (OrderDetail orderDetailListOrderDetailToAttach : product.getOrderDetailList()) {
-                orderDetailListOrderDetailToAttach = em.getReference(orderDetailListOrderDetailToAttach.getClass(), orderDetailListOrderDetailToAttach.getOrderDetailno());
-                attachedOrderDetailList.add(orderDetailListOrderDetailToAttach);
-            }
-            product.setOrderDetailList(attachedOrderDetailList);
             List<History> attachedHistoryList = new ArrayList<History>();
             for (History historyListHistoryToAttach : product.getHistoryList()) {
                 historyListHistoryToAttach = em.getReference(historyListHistoryToAttach.getClass(), historyListHistoryToAttach.getHistoryId());
@@ -72,15 +62,6 @@ public class ProductJpaController implements Serializable {
             if (categoryId != null) {
                 categoryId.getProductList().add(product);
                 categoryId = em.merge(categoryId);
-            }
-            for (OrderDetail orderDetailListOrderDetail : product.getOrderDetailList()) {
-                Product oldProductIdOfOrderDetailListOrderDetail = orderDetailListOrderDetail.getProductId();
-                orderDetailListOrderDetail.setProductId(product);
-                orderDetailListOrderDetail = em.merge(orderDetailListOrderDetail);
-                if (oldProductIdOfOrderDetailListOrderDetail != null) {
-                    oldProductIdOfOrderDetailListOrderDetail.getOrderDetailList().remove(orderDetailListOrderDetail);
-                    oldProductIdOfOrderDetailListOrderDetail = em.merge(oldProductIdOfOrderDetailListOrderDetail);
-                }
             }
             for (History historyListHistory : product.getHistoryList()) {
                 Product oldProductIdOfHistoryListHistory = historyListHistory.getProductId();
@@ -117,21 +98,12 @@ public class ProductJpaController implements Serializable {
             Product persistentProduct = em.find(Product.class, product.getProductId());
             Category categoryIdOld = persistentProduct.getCategoryId();
             Category categoryIdNew = product.getCategoryId();
-            List<OrderDetail> orderDetailListOld = persistentProduct.getOrderDetailList();
-            List<OrderDetail> orderDetailListNew = product.getOrderDetailList();
             List<History> historyListOld = persistentProduct.getHistoryList();
             List<History> historyListNew = product.getHistoryList();
             if (categoryIdNew != null) {
                 categoryIdNew = em.getReference(categoryIdNew.getClass(), categoryIdNew.getCategoryId());
                 product.setCategoryId(categoryIdNew);
             }
-            List<OrderDetail> attachedOrderDetailListNew = new ArrayList<OrderDetail>();
-            for (OrderDetail orderDetailListNewOrderDetailToAttach : orderDetailListNew) {
-                orderDetailListNewOrderDetailToAttach = em.getReference(orderDetailListNewOrderDetailToAttach.getClass(), orderDetailListNewOrderDetailToAttach.getOrderDetailno());
-                attachedOrderDetailListNew.add(orderDetailListNewOrderDetailToAttach);
-            }
-            orderDetailListNew = attachedOrderDetailListNew;
-            product.setOrderDetailList(orderDetailListNew);
             List<History> attachedHistoryListNew = new ArrayList<History>();
             for (History historyListNewHistoryToAttach : historyListNew) {
                 historyListNewHistoryToAttach = em.getReference(historyListNewHistoryToAttach.getClass(), historyListNewHistoryToAttach.getHistoryId());
@@ -147,23 +119,6 @@ public class ProductJpaController implements Serializable {
             if (categoryIdNew != null && !categoryIdNew.equals(categoryIdOld)) {
                 categoryIdNew.getProductList().add(product);
                 categoryIdNew = em.merge(categoryIdNew);
-            }
-            for (OrderDetail orderDetailListOldOrderDetail : orderDetailListOld) {
-                if (!orderDetailListNew.contains(orderDetailListOldOrderDetail)) {
-                    orderDetailListOldOrderDetail.setProductId(null);
-                    orderDetailListOldOrderDetail = em.merge(orderDetailListOldOrderDetail);
-                }
-            }
-            for (OrderDetail orderDetailListNewOrderDetail : orderDetailListNew) {
-                if (!orderDetailListOld.contains(orderDetailListNewOrderDetail)) {
-                    Product oldProductIdOfOrderDetailListNewOrderDetail = orderDetailListNewOrderDetail.getProductId();
-                    orderDetailListNewOrderDetail.setProductId(product);
-                    orderDetailListNewOrderDetail = em.merge(orderDetailListNewOrderDetail);
-                    if (oldProductIdOfOrderDetailListNewOrderDetail != null && !oldProductIdOfOrderDetailListNewOrderDetail.equals(product)) {
-                        oldProductIdOfOrderDetailListNewOrderDetail.getOrderDetailList().remove(orderDetailListNewOrderDetail);
-                        oldProductIdOfOrderDetailListNewOrderDetail = em.merge(oldProductIdOfOrderDetailListNewOrderDetail);
-                    }
-                }
             }
             for (History historyListOldHistory : historyListOld) {
                 if (!historyListNew.contains(historyListOldHistory)) {
@@ -221,11 +176,6 @@ public class ProductJpaController implements Serializable {
                 categoryId.getProductList().remove(product);
                 categoryId = em.merge(categoryId);
             }
-            List<OrderDetail> orderDetailList = product.getOrderDetailList();
-            for (OrderDetail orderDetailListOrderDetail : orderDetailList) {
-                orderDetailListOrderDetail.setProductId(null);
-                orderDetailListOrderDetail = em.merge(orderDetailListOrderDetail);
-            }
             List<History> historyList = product.getHistoryList();
             for (History historyListHistory : historyList) {
                 historyListHistory.setProductId(null);
@@ -271,7 +221,29 @@ public class ProductJpaController implements Serializable {
         }
     }
 
-     public List<Product> findByProductName(String productName) {
+    public Product findProduct(String id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Product.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getProductCount() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<Product> rt = cq.from(Product.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Product> findByProductName(String productName) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findByProductName");
@@ -317,8 +289,18 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public List<Product> findAll() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findAll");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
-    public List<Product> findCategoryId(Category category) {
+       public List<Product> findCategoryId(Category category) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findCategoryId");
@@ -329,36 +311,4 @@ public class ProductJpaController implements Serializable {
         }
     }
 
-    public Product findProduct(String id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Product.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Product> findAll() {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createNamedQuery("Product.findAll");
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-    
-    public int getProductCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Product> rt = cq.from(Product.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-    
 }

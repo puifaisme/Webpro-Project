@@ -24,7 +24,6 @@ import sit.jpa.project.controller.CustomerJpaController;
 import sit.jpa.project.model.Account;
 import sit.jpa.project.model.Customer;
 import sit.jpa.project.model.History;
-import sit.jpa.project.model.OrderList;
 
 /**
  *

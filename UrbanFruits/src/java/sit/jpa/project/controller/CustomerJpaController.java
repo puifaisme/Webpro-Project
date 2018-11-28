@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import sit.jpa.project.model.Account;
-import sit.jpa.project.model.OrderList;
+import sit.jpa.project.model.History;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,11 +20,10 @@ import javax.transaction.UserTransaction;
 import sit.jpa.project.controller.exceptions.NonexistentEntityException;
 import sit.jpa.project.controller.exceptions.RollbackFailureException;
 import sit.jpa.project.model.Customer;
-import sit.jpa.project.model.History;
 
 /**
  *
- * @author ADMIN
+ * @author Chonticha Sae-jiw
  */
 public class CustomerJpaController implements Serializable {
 
@@ -40,9 +39,6 @@ public class CustomerJpaController implements Serializable {
     }
 
     public void create(Customer customer) throws RollbackFailureException, Exception {
-        if (customer.getOrderListList() == null) {
-            customer.setOrderListList(new ArrayList<OrderList>());
-        }
         if (customer.getHistoryList() == null) {
             customer.setHistoryList(new ArrayList<History>());
         }
@@ -55,12 +51,6 @@ public class CustomerJpaController implements Serializable {
                 email = em.getReference(email.getClass(), email.getEmail());
                 customer.setEmail(email);
             }
-            List<OrderList> attachedOrderListList = new ArrayList<OrderList>();
-            for (OrderList orderListListOrderListToAttach : customer.getOrderListList()) {
-                orderListListOrderListToAttach = em.getReference(orderListListOrderListToAttach.getClass(), orderListListOrderListToAttach.getOrderId());
-                attachedOrderListList.add(orderListListOrderListToAttach);
-            }
-            customer.setOrderListList(attachedOrderListList);
             List<History> attachedHistoryList = new ArrayList<History>();
             for (History historyListHistoryToAttach : customer.getHistoryList()) {
                 historyListHistoryToAttach = em.getReference(historyListHistoryToAttach.getClass(), historyListHistoryToAttach.getHistoryId());
@@ -71,15 +61,6 @@ public class CustomerJpaController implements Serializable {
             if (email != null) {
                 email.getCustomerList().add(customer);
                 email = em.merge(email);
-            }
-            for (OrderList orderListListOrderList : customer.getOrderListList()) {
-                Customer oldCustIdOfOrderListListOrderList = orderListListOrderList.getCustId();
-                orderListListOrderList.setCustId(customer);
-                orderListListOrderList = em.merge(orderListListOrderList);
-                if (oldCustIdOfOrderListListOrderList != null) {
-                    oldCustIdOfOrderListListOrderList.getOrderListList().remove(orderListListOrderList);
-                    oldCustIdOfOrderListListOrderList = em.merge(oldCustIdOfOrderListListOrderList);
-                }
             }
             for (History historyListHistory : customer.getHistoryList()) {
                 Customer oldCustIdOfHistoryListHistory = historyListHistory.getCustId();
@@ -113,21 +94,12 @@ public class CustomerJpaController implements Serializable {
             Customer persistentCustomer = em.find(Customer.class, customer.getCustId());
             Account emailOld = persistentCustomer.getEmail();
             Account emailNew = customer.getEmail();
-            List<OrderList> orderListListOld = persistentCustomer.getOrderListList();
-            List<OrderList> orderListListNew = customer.getOrderListList();
             List<History> historyListOld = persistentCustomer.getHistoryList();
             List<History> historyListNew = customer.getHistoryList();
             if (emailNew != null) {
                 emailNew = em.getReference(emailNew.getClass(), emailNew.getEmail());
                 customer.setEmail(emailNew);
             }
-            List<OrderList> attachedOrderListListNew = new ArrayList<OrderList>();
-            for (OrderList orderListListNewOrderListToAttach : orderListListNew) {
-                orderListListNewOrderListToAttach = em.getReference(orderListListNewOrderListToAttach.getClass(), orderListListNewOrderListToAttach.getOrderId());
-                attachedOrderListListNew.add(orderListListNewOrderListToAttach);
-            }
-            orderListListNew = attachedOrderListListNew;
-            customer.setOrderListList(orderListListNew);
             List<History> attachedHistoryListNew = new ArrayList<History>();
             for (History historyListNewHistoryToAttach : historyListNew) {
                 historyListNewHistoryToAttach = em.getReference(historyListNewHistoryToAttach.getClass(), historyListNewHistoryToAttach.getHistoryId());
@@ -143,23 +115,6 @@ public class CustomerJpaController implements Serializable {
             if (emailNew != null && !emailNew.equals(emailOld)) {
                 emailNew.getCustomerList().add(customer);
                 emailNew = em.merge(emailNew);
-            }
-            for (OrderList orderListListOldOrderList : orderListListOld) {
-                if (!orderListListNew.contains(orderListListOldOrderList)) {
-                    orderListListOldOrderList.setCustId(null);
-                    orderListListOldOrderList = em.merge(orderListListOldOrderList);
-                }
-            }
-            for (OrderList orderListListNewOrderList : orderListListNew) {
-                if (!orderListListOld.contains(orderListListNewOrderList)) {
-                    Customer oldCustIdOfOrderListListNewOrderList = orderListListNewOrderList.getCustId();
-                    orderListListNewOrderList.setCustId(customer);
-                    orderListListNewOrderList = em.merge(orderListListNewOrderList);
-                    if (oldCustIdOfOrderListListNewOrderList != null && !oldCustIdOfOrderListListNewOrderList.equals(customer)) {
-                        oldCustIdOfOrderListListNewOrderList.getOrderListList().remove(orderListListNewOrderList);
-                        oldCustIdOfOrderListListNewOrderList = em.merge(oldCustIdOfOrderListListNewOrderList);
-                    }
-                }
             }
             for (History historyListOldHistory : historyListOld) {
                 if (!historyListNew.contains(historyListOldHistory)) {
@@ -216,11 +171,6 @@ public class CustomerJpaController implements Serializable {
             if (email != null) {
                 email.getCustomerList().remove(customer);
                 email = em.merge(email);
-            }
-            List<OrderList> orderListList = customer.getOrderListList();
-            for (OrderList orderListListOrderList : orderListList) {
-                orderListListOrderList.setCustId(null);
-                orderListListOrderList = em.merge(orderListListOrderList);
             }
             List<History> historyList = customer.getHistoryList();
             for (History historyListHistory : historyList) {

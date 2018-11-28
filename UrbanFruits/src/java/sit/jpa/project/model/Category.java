@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
     , @NamedQuery(name = "Category.findByCategoryId", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId")
     , @NamedQuery(name = "Category.findByCategoryName", query = "SELECT c FROM Category c WHERE lower(c.categoryName) like :categoryName")})
+
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,5 +102,5 @@ public class Category implements Serializable {
     public String toString() {
         return "sit.jpa.project.model.Category[ categoryId=" + categoryId + " ]";
     }
-    
+
 }

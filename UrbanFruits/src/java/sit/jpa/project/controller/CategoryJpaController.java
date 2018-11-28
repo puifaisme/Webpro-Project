@@ -23,7 +23,7 @@ import sit.jpa.project.model.Category;
 
 /**
  *
- * @author ADMIN
+ * @author Chonticha Sae-jiw
  */
 public class CategoryJpaController implements Serializable {
 
@@ -172,17 +172,6 @@ public class CategoryJpaController implements Serializable {
         return findCategoryEntities(true, -1, -1);
     }
 
-     public List<Category> findByCategory(String categoryName) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createNamedQuery("Category.findByCategoryName");
-            query.setParameter("categoryName", "%" + categoryName.toLowerCase() + "%");
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-    
     public List<Category> findCategoryEntities(int maxResults, int firstResult) {
         return findCategoryEntities(false, maxResults, firstResult);
     }
@@ -225,4 +214,15 @@ public class CategoryJpaController implements Serializable {
         }
     }
     
+    public List<Category> findByCategory(String categoryName) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Category.findByCategoryName");
+            query.setParameter("categoryName", "%" + categoryName.toLowerCase() + "%");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
