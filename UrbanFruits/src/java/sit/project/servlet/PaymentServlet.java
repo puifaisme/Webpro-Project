@@ -71,7 +71,6 @@ public class PaymentServlet extends HttpServlet {
                     his.setHistoryId(i);
                     try {
                         hisJPA.create(his);
-                        System.out.println("111111111111");
                     } catch (Exception ex) {
                         System.out.println(ex);
                     }

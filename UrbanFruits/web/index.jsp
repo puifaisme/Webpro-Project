@@ -17,34 +17,33 @@
 
     <body>
         <div class='font-moonlight'>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-md-12">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto" style="margin-top: 2%    ;margin-bottom: 1% ;">
-                        <li class="nav-item active" style="margin-left: -50px; margin-top:-3px;">
-                            <a class="nav-link"href="index.jsp">Home
+                    <ul class="navbar-nav mr-auto col-8" style="margin-top: 1%    ;margin-bottom: 1%;">
+                        <li class="nav-item active">
+                            <a class="nav-link" style="margin-left: 200px;" href="index.jsp">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ProductAll" style=" margin-top:-3px; margin-left: 180px;">Products</a>
+                            <a class="nav-link" href="ProductAll">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ShowCart" style=" margin-top:-3px; margin-left: 180px;">Cart()</a>
-                        </li>       
-                        <li><form action="SearchProduct" method="post" class="form-inline my-2 my-lg-0" style="margin-left: -130px;">                               
-                                <input type="text" required minlength="3" name="productName" class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search" style=" margin-left: 295px; padding-left: 120px;padding-right: 25px;margin-top: -5px;">
-                                <input type="hidden" value="1" name="categoryId">
-                            </form></li>
-                        <li class="nav-item" style="margin-left: -158px; margin-top: 16px;">
-                            <a href="Login"><button type="button" class="btn btn-outline-success" style="margin-top: -30px; padding-left: 20px; padding-right : 20px;">Login</button></a>
-                        </li>                      
-                    </ul>         
+                            <a class="nav-link" href="ShowCart">Cart</a>
+                        </li>                                                      
+                    <form action="SearchProduct" class="form-inline my-2 my-lg-0 col-4" style="margin-left: 180px;">
+                        <input name="productName" minlength="3" class="form-control mr-sm-2" type="search" placeholder="Search here" aria-label="Search">
+                        <input type="hidden" name="categoryId" value="1">
+<!--                        <a href="Login"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>-->
+                    </form>            
+                            <a href="Login"><button type="button" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: -50px">Login</button></a>
+                  </ul>          
                 </div>
             </nav>
             <div class="topicText">Urban</div>
             <div class="text">Fruit & Vegetable</div>
             <div>
-                <a href="">
+                <a href="ProductAll">
                     <button class="topicbtn">Order Now</button>
                 </a>
             </div>

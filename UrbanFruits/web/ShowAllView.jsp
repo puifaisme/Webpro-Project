@@ -17,46 +17,62 @@
     </head>
     <body>
         <div class='font-moonlight'>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-md-12">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto" style="margin-top: 1%    ;margin-bottom: 1%; margin-bottom: -6px;">
-                        <li class="nav-item active" style="margin-left: -50px;">
-                            <a class="nav-link"href="index.jsp">Home
+                    <ul class="navbar-nav mr-auto col-8" style="margin-top: 6px    ;margin-bottom: 6px;">
+                        <li class="nav-item">
+                            <a class="nav-link" style="margin-left: 190px;" href="index.jsp">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="ProductAll">Products</a>
+                        <li class="nav-item  active" >
+                            <a class="nav-link" style="margin-left: 160px;" href="ProductAll">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ShowCart">Cart()</a>
-                        </li>       
-                        <li><form action="SearchProduct" method="post" class="form-inline my-2 my-lg-0" style="margin-left: -130px;">                               
-                                <input type="text" required minlength="3" name="productName" class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search" style="padding-left: 70px;padding-right: 70px;margin-top: -2px;">
-                                <input type="hidden" value="1" name="categoryId">
-                            </form></li>
-                        <li class="nav-item" style="margin-left: -320px;">
-                            <a href="Login"><button type="button" class="btn btn-outline-success" style="margin-top: -22px; padding-left: 20px; padding-right : 20px;">Login</button></a>
-                        </li>                      
-                    </ul>         
+                            <a class="nav-link" style="margin-left: 160px;" href="ShowCart">Cart</a>
+                        </li>                                                      
+                    <form action="SearchProduct" class="form-inline my-2 my-lg-0 col-4" style="margin-left: 190px;">
+                        <input name="productName" minlength="3" class="form-control mr-sm-2" type="search" placeholder="Search here" aria-label="Search">
+                        <input type="hidden" name="categoryId" value="1">
+<!--                        <a href="Login"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>-->
+                    </form>
+                        <div style="margin-top: 9px">
+                                                     <a href="Login"><button type="button" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: -50px;">Login</button></a>
+                        </div>
+   
+                  </ul>          
                 </div>
             </nav>
-            <img src="Backgroung-Picture/Pic-All.jpg" width='100%'>
+<!--            <img src="Backgroung-Picture/Pic-All.jpg" width='100%'>-->
             <div class="dropdown">
-                <button class="dropbtn"><img src="Icon/arrow.png" width="2%" class="margin-icon">search by . .</button>
+                <button class="dropbtn"><img src="Icon/arrow.png" width="2%" class="margin-icon" >search by . .</button>
                 <div class="dropdown-content">
-                    <a href="ProductVeg">Vegetables</a>
-                    <a href="ProductDriedFruit">Dried Fruit</a>
-                    <a href="ProductJuice">Juice</a>
+                    <a href="ProductVeg" style="text-decoration: none">Vegetables</a>
+                    <a href="ProductDriedFruit" style="text-decoration: none">Dried Fruit</a>
+                    <a href="ProductJuice" style="text-decoration: none">Juice</a>
                 </div>
             </div>
             <div class="flex-container margin-page">
                 <c:forEach items="${products}" var="pF" varStatus="num">
                     <div class="font-moonlight-bold">
-                        <div><img src="${pageContext.request.contextPath}/${pF.image}" width="200" height="200"></div>
+                        <div><img src="${pageContext.request.contextPath}/${pF.image}" width="250" height="210"></div>
                         <div class="name">${pF.productName}</div>
                         <div class="price">${pF.price} BATH / 1 KG</div>
-                        <div><button type="button" class="btn-success margin-loop">ADD TO CART</button></div>
+                        <form action="AddToCart">
+                            <span onclick="var effect = document.getElementById('qty'); var qty = effect.value; if (!isNaN(qty) & amp; & amp; qty & gt; 1) effect.value--; return false;">
+                                <img src="Icon/minus.png" width="auto" height="30px">
+                            </span>
+                            <input type="quantity" class="" id="qty" step="1" min="1" max="20" name="quantity" value="1" size="3" style="text-align: center">
+                            <span  onclick="var effect = document.getElementById('qty');
+                                    var qty = effect.value;
+                                    if (!isNaN(qty))
+                                        effect.value++;
+                                    return false;">
+                                <img src="Icon/plus.png" width="auto" height="30px">
+                            </span>
+                            <input type="hidden" value="${pV.productId}" name="proId">
+                            <div><button type="submit" class="btn-success margin-loop" style="margin-top: 20px;">ADD TO CART</button></div>
+                        </form>             
                     </div>
                 </c:forEach>
                

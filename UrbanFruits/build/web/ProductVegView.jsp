@@ -18,28 +18,30 @@
     </head>
     <body>
         <div class='font-moonlight'>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-md-12">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto" style="margin-top: 1%    ;margin-bottom: 1%; margin-bottom: -6px;">
-                        <li class="nav-item active" style="margin-left: -50px;">
-                            <a class="nav-link"href="index.jsp">Home
+                    <ul class="navbar-nav mr-auto col-8" style="margin-top: 6px    ;margin-bottom: 6px;">
+                        <li class="nav-item">
+                            <a class="nav-link" style="margin-left: 190px;" href="index.jsp">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="ProductAll">Products</a>
+                        <li class="nav-item" >
+                            <a class="nav-link" style="margin-left: 160px;" href="ProductAll">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ShowCart">Cart()</a>
-                        </li>       
-                        <li><form action="SearchProduct" method="post" class="form-inline my-2 my-lg-0" style="margin-left: -130px;">                               
-                                <input type="text" required minlength="3" name="productName" class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search" style="padding-left: 70px;padding-right: 70px;margin-top: -2px;">
-                                <input type="hidden" value="1" name="categoryId">
-                            </form></li>
-                        <li class="nav-item" style="margin-left: -320px;">
-                            <a href="Login"><button type="button" class="btn btn-outline-success" style="margin-top: -22px; padding-left: 20px; padding-right : 20px;">Login</button></a>
-                        </li>                      
-                    </ul>         
+                            <a class="nav-link" style="margin-left: 160px;" href="ShowCart">Cart</a>
+                        </li>                                                      
+                        <form action="SearchProduct" class="form-inline my-2 my-lg-0 col-4" style="margin-left: 190px;">
+                            <input name="productName" minlength="3" class="form-control mr-sm-2" type="search" placeholder="Search here" aria-label="Search">
+                            <input type="hidden" name="categoryId" value="1">
+                            <!--                        <a href="Login"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>-->
+                        </form>
+                        <div style="margin-top: 9px">
+                            <a href="Login"><button type="button" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: -50px;">Login</button></a>
+                        </div>
+
+                    </ul>          
                 </div>
             </nav>
             <img src="Backgroung-Picture/Pic-Veg.jpg" width='100%'>
@@ -54,7 +56,7 @@
             <div class="flex-container margin-page">
                 <c:forEach items="${products}" var="pV" varStatus="num">
                     <div class="font-moonlight-bold margin-product">
-                        <div><img src="${pageContext.request.contextPath}/${pV.image}" width="auto" height="200"></div>
+                        <div><img src="${pageContext.request.contextPath}/${pV.image}" width="250" height="220"></div>
                         <div class="name">${pV.productName}</div>
                         <div class="price">${pV.price} BATH / 1 KG</div>
                         <form action="AddToCart">
@@ -63,14 +65,19 @@
                             </span>
                             <input type="quantity" class="" id="qty" step="1" min="1" max="20" name="quantity" value="1" size="3" style="text-align: center">
                             <span  onclick="var effect = document.getElementById('qty');
-                                    var qty = effect.value;
-                                    if (!isNaN(qty))
+                                var qty = effect.value;
+                                if (!isNaN(qty))
                                         effect.value++;
-                                    return false;">
+                                return false;">
                                 <img src="Icon/plus.png" width="auto" height="30px">
                             </span>
+                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if (!isNaN(qty) & amp; & amp; qty & gt; 1) effect.value--; return false;">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="20" name="quantity" value="1">
+                            <input name="productCode" value="${product.productcode}" hidden>
+                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if (!isNaN(qty)) effect.value++; return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                             <input type="hidden" value="${pV.productId}" name="proId">
-                            <div><button type="submit" class="btn-success margin-loop" style="">ADD TO CART</button></div>
+                            <div><button type="submit" class="btn-success margin-loop" style="margin-top: 15px;">ADD TO CART</button></div>
                         </form>             
                     </div>
                 </c:forEach>

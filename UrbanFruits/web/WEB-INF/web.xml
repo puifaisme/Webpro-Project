@@ -9,12 +9,20 @@
         <servlet-class>sit.project.servlet.ProductDriedFruitServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProductAllServlet</servlet-name>
+        <servlet-class>sit.project.servlet.ProductAllServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProductFruitServlet</servlet-name>
         <servlet-class>sit.project.servlet.ProductFruitServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchProductServlet</servlet-name>
         <servlet-class>sit.project.servlet.SearchProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAllServlet</servlet-name>
+        <servlet-class>sit.project.servlet.SearchAllServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ActivateServlet</servlet-name>
@@ -52,21 +60,21 @@
         <servlet-name>HistoryServlet</servlet-name>
         <servlet-class>sit.project.servlet.HistoryServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SearchByCategoryServlet</servlet-name>
-        <servlet-class>sit.project.servlet.SearchByCategoryServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProductAllServlet</servlet-name>
-        <servlet-class>sit.project.servlet.ProductAllServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
         <url-pattern>/Payment</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>SearchAllServlet</servlet-name>
+        <url-pattern>/SearchAll</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ProductVegServlet</servlet-name>
         <url-pattern>/ProductVeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductAllServlet</servlet-name>
+        <url-pattern>/ProductAll</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowCartServlet</servlet-name>
@@ -112,17 +120,4 @@
         <servlet-name>HistoryServlet</servlet-name>
         <url-pattern>/History</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchByCategoryServlet</servlet-name>
-        <url-pattern>/SearchByCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductAllServlet</servlet-name>
-        <url-pattern>/ProductAll</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
 </web-app>
