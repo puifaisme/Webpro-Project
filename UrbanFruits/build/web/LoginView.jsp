@@ -32,11 +32,11 @@
     </head>
     <body>
         <div class='font-moonlight'>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fix col-12 col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto col-8" style="margin-top: 1%    ;margin-bottom: 1%;">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.jsp">Home
+                    <ul class="navbar-nav mr-auto" style="margin-top: 1%    ;margin-bottom: 1%; margin-bottom: -6px;">
+                        <li class="nav-item active" style="margin-left: -50px;">
+                            <a class="nav-link"href="index.jsp">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -45,12 +45,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ShowCart">Cart()</a>
-                        </li>                                     
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0 col-4" style="margin-right: 10%">
-                                <input minlength="3" class="form-control mr-sm-2" type="search" placeholder="Search here" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form> 
+                        </li>       
+                        <li><form action="SearchProduct" method="post" class="form-inline my-2 my-lg-0" style="margin-left: -130px;">                               
+                                <input type="text" required minlength="3" name="productName" class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search" style="padding-left: 70px;padding-right: 70px;margin-top: -2px;">
+                                <input type="hidden" value="1" name="categoryId">
+                            </form></li>
+                        <li class="nav-item" style="margin-left: -320px;">
+                            <a href="Login"><button type="button" class="btn btn-outline-success" style="margin-top: -22px; padding-left: 20px; padding-right : 20px;">Login</button></a>
+                        </li>                      
+                    </ul>         
                 </div>
             </nav>
             <!--            <img  class="pic-margin index" src="Backgroung-Picture/Pic-Login.jpg" width='100%'>-->

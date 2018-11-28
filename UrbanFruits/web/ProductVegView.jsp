@@ -15,20 +15,14 @@
         <link rel="stylesheet" type="text/css" href="css/css.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
     </head>
     <body>
         <div class='font-moonlight'>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto col-8" style="margin-top: 1%    ;margin-bottom: 1%;">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.jsp">Home
+                    <ul class="navbar-nav mr-auto" style="margin-top: 1%    ;margin-bottom: 1%; margin-bottom: -6px;">
+                        <li class="nav-item active" style="margin-left: -50px;">
+                            <a class="nav-link"href="index.jsp">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -37,12 +31,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ShowCart">Cart()</a>
-                        </li>                                     
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0 col-4" style="margin-right: 10%">
-                        <input minlength="3" class="form-control mr-sm-2" type="search" placeholder="Search here" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form> 
+                        </li>       
+                        <li><form action="SearchProduct" method="post" class="form-inline my-2 my-lg-0" style="margin-left: -130px;">                               
+                                <input type="text" required minlength="3" name="productName" class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search" style="padding-left: 70px;padding-right: 70px;margin-top: -2px;">
+                                <input type="hidden" value="1" name="categoryId">
+                            </form></li>
+                        <li class="nav-item" style="margin-left: -320px;">
+                            <a href="Login"><button type="button" class="btn btn-outline-success" style="margin-top: -22px; padding-left: 20px; padding-right : 20px;">Login</button></a>
+                        </li>                      
+                    </ul>         
                 </div>
             </nav>
             <img src="Backgroung-Picture/Pic-Veg.jpg" width='100%'>
@@ -61,17 +58,19 @@
                         <div class="name">${pV.productName}</div>
                         <div class="price">${pV.price} BATH / 1 KG</div>
                         <form action="AddToCart">
-                            <span class="btn btn-danger" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
-                                -
+                            <span onclick="var effect = document.getElementById('qty'); var qty = effect.value; if (!isNaN(qty) & amp; & amp; qty & gt; 1) effect.value--; return false;">
+                                <img src="Icon/minus.png" width="auto" height="30px">
                             </span>
-                            <input type="quantity" class="qty-text" id="qty" step="1" min="1" max="20" name="quantity" value="1">
-                            <span class="btn btn-success" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if (!isNaN(qty))
+                            <input type="quantity" class="" id="qty" step="1" min="1" max="20" name="quantity" value="1" size="3" style="text-align: center">
+                            <span  onclick="var effect = document.getElementById('qty');
+                                    var qty = effect.value;
+                                    if (!isNaN(qty))
                                         effect.value++;
                                     return false;">
-                                +
+                                <img src="Icon/plus.png" width="auto" height="30px">
                             </span>
                             <input type="hidden" value="${pV.productId}" name="proId">
-                            <div><button type="submit" class="btn-success margin-loop">ADD TO CART</button></div>
+                            <div><button type="submit" class="btn-success margin-loop" style="">ADD TO CART</button></div>
                         </form>             
                     </div>
                 </c:forEach>

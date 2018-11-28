@@ -30,6 +30,7 @@ and open the template in the editor.
     font-family: 'moonbold';
 }
 
+
 /*.nav-fix {
     position: fixed;
     background-color: white;
@@ -42,7 +43,6 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-size: 15px;
 }
 
@@ -80,6 +80,7 @@ li input {
     text-decoration: none;
     border-radius: 20px;
 }
+
 
 .flex-container {
     display: flex;

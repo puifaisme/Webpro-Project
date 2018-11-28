@@ -22,7 +22,7 @@ and open the template in the editor.
 }
 
 .fit-image {
-        object-fit: cover;
+    object-fit: cover;
     height: 650px;
     object-position: 0px 1px;
 }
@@ -140,13 +140,26 @@ and open the template in the editor.
 
 }
 
+.pic-input {
+    background-image:url('../Icon/search.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 18px;
+    width: auto;
+    height: 20px;
+}
+
 .pic-margin {
     margin-bottom: 10%;
 }
 li{
     display: inline;
 }
-
+.form-inline1 {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
 li a{
     text-decoration: none;
     margin-left: 170px;
